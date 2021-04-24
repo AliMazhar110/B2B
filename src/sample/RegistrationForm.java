@@ -111,22 +111,27 @@ public class RegistrationForm extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if(nameField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your name");
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                            "Error!", "Please enter your name");
                     return;
                 }
                 if(userField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!" ,"Please enter your username");
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                            "Error!" ,"Please enter your username");
                     return;
                 }
                 if(emailField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your email");
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                            "Error!", "Please enter your email");
                     return;
                 }
                 if(passwordField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Error!", "Please enter your password");
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                            "Error!", "Please enter your password");
                     return;
                 }
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Sign Up Successful","Welcome "+userField.getText());
+                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
+                        "Sign Up Successful","Welcome "+userField.getText());
             }
         });
     }
@@ -138,7 +143,4 @@ public class RegistrationForm extends Application {
         alert.initOwner(owner);
         alert.show();
     }
-    /*public static void main(String[] args){
-        launch(args);
-    } */
 }

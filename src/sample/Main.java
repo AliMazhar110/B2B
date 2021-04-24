@@ -6,18 +6,15 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Main extends Application {
 
@@ -30,9 +27,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // String[] args;
         window = primaryStage;
-        primaryStage.setTitle("JavaFX Welcome");
+        primaryStage.setTitle("B2B Sign-In/Sign-Up//");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -47,21 +43,21 @@ public class Main extends Application {
         scenetitle.setFont(Font.font("Century", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        Label userName = new Label("User Name:");
+        Label userName = new Label("User Name:"); // UserName
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField();
+        TextField userTextField = new TextField(); // Password
         grid.add(userTextField, 1, 1);
 
-        Label pw = new Label("Password:");
-        grid.add(pw, 0, 2);
+        Label password = new Label("Password:");
+        grid.add(password, 0, 2);
 
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
 
-        Button signIn = new Button("Sign in");
-        Button signUp = new Button("Sign up");
-        Button close = new Button("Exit");
+        Button signIn = new Button("Sign in"); // Sign in button
+        Button signUp = new Button("Sign up"); // Sign up button
+        Button close = new Button("Exit"); // exit the app button
         Label label = new Label();
         HBox hbBtn = new HBox(10);
         VBox vbBtn = new VBox(10);
@@ -75,14 +71,31 @@ public class Main extends Application {
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        signIn.setOnAction(e -> SignedInUser.display("Welcome"));
+        signIn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if (userName.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                            "Error!", "Please enter your username");
+                    return;
+                } if (password.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                            "Error!", "Please enter your password");
+                    return;
+                } else {
+                    /*showAlert(Alert.AlertType.CONFIRMATION, grid.getScene().getWindow(),
+                            "Sign Up Successful", "Welcome " + userName.getText());*/
+                    SignedInUser.display("Welcome");
+                }
+            }
+        });
         signUp.setOnAction(e -> {
             try {
                 r.start(window);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-        });// System.out.println("Create account clicked"));
+        });
         window.setOnCloseRequest(e -> {
            e.consume();
            window.close();
@@ -90,5 +103,14 @@ public class Main extends Application {
         close.setOnAction(e -> window.close());
 
         primaryStage.show();
+    }
+
+    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 }

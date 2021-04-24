@@ -18,10 +18,11 @@ public class FlightStatus {
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
 
-        // to take input in this window only and not other open windows
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Flight status");
-        window.setMinWidth(850);
+
+        Scene scene = new Scene(grid, 300, 300);
+        window.setScene(scene);
 
         Label name = new Label(nameOfUser);
         Label airline = new Label(airlineName);
@@ -29,14 +30,14 @@ public class FlightStatus {
         Label departure = new Label(time);
 
         VBox vertical = new VBox(10);
-        HBox horizontal = new HBox(10);
         vertical.setAlignment(Pos.CENTER_LEFT);
-        horizontal.setAlignment(Pos.BOTTOM_CENTER);
-        vertical.getChildren().add(name);
-        horizontal.getChildren().addAll(airline, flight, departure);
+        vertical.getChildren().addAll(name, airline, flight, departure);
 
+        Button exitWindow = new Button("Back");
+        exitWindow.setOnAction(e -> window.close());
+
+        grid.add(exitWindow, 0, 4);
         grid.add(vertical, 0, 2);
-        grid.add(horizontal, 1, 1);
 
         window.showAndWait();
     }

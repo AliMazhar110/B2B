@@ -14,7 +14,7 @@ public class SignedInUser {
         // to take input in this window only and not other open windows
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setMinWidth(850);
+        window.setMinWidth(400);
 
         Label label = new Label();
         Button editProfile = new Button("Edit profile");
