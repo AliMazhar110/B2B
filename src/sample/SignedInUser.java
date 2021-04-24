@@ -5,18 +5,32 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
+import javafx.application.Application;
 
-public class SignedInUser {
+public class SignedInUser extends Application {
 
-    private static FlightBooking f = new FlightBooking();
+    @Override
+    public void start(Stage window) {
+        String title = "message";
+        display(title, window);
+    }
 
-    public static void display(String title) {
-        Stage window = new Stage();
+    public static void display(String title, Stage window) {
 
         // to take input in this window only and not other open windows
-        window.initModality(Modality.APPLICATION_MODAL);
+        // window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setMinWidth(400);
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(40, 40, 40, 40));
+
+        Scene scene = new Scene(grid, 800, 675);
+        window.setScene(scene);
+
+        // window.setMinWidth(800);
 
         Label label = new Label();
         Button editProfile = new Button("Edit profile");
@@ -30,7 +44,7 @@ public class SignedInUser {
         viewFlightStatus.setOnAction(e -> {
             FlightStatus.display("User", "Airline",
                     "Flight Number", "Departure time");
-        });// System.out.println("View Flight status clicked"));
+        });
         logout.setOnAction(e ->  {
             System.out.println("Successfully Logged out");
             window.close();
@@ -40,9 +54,9 @@ public class SignedInUser {
         layout.getChildren().addAll(label, viewFlightStatus,
                 editProfile, bookFlight, cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);
+        grid.add(layout, 0, 1);
 
-        Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
+        // window.setScene(scene);
+        window.show();
     }
 }

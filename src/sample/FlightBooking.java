@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,18 +12,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class FlightBooking {
-    /* public static void main(String[] args){
-        launch(args);
-    }
-    @Override
-    public void start(Stage stage) throws Exception{
-        stage.setTitle("Book Flight");
-        GridPane gridpane = createBookingPane();
-        addUIControls(gridpane);
-        Scene scene = new Scene(gridpane, 800, 500);
-        stage.setScene(scene);
-        stage.show();
-    }*/
 
     public static void display() {
         Stage stage = new Stage();

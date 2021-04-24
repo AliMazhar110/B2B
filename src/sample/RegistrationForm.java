@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -17,20 +16,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class RegistrationForm {
-
-   /* @Override
-    public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("Registration Form");
-        // Create the registration form pane
-        GridPane gridPane = createRegistrationFormPane();
-        // Add UI controls to the registration form grid Pane
-        addUIControls(gridPane);
-        //Create a scene with the registration form gridPane as the root node.
-        Scene scene = new Scene(gridPane, 800, 500);
-        // Set the scene in primary stage
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }*/
 
     public static void display() {
         Stage primaryStage = new Stage();
@@ -121,9 +106,7 @@ public class RegistrationForm {
         gridPane.add(submitButton, 0, 5, 2, 1);
         GridPane.setHalignment(submitButton, HPos.CENTER);
         GridPane.setMargin(submitButton, new Insets(20,0,20,0));
-        submitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        submitButton.setOnAction(e -> {
                 if(nameField.getText().isEmpty()){
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                             "Error!", "Please enter your name");
@@ -146,7 +129,6 @@ public class RegistrationForm {
                 }
                 showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
                         "Sign Up Successful","Welcome "+userField.getText());
-            }
         });
     }
     private static void showAlert(Alert.AlertType alertType,

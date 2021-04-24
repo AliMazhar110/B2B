@@ -1,8 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +17,7 @@ import javafx.stage.Window;
 public class Main extends Application {
 
     Stage window;
-    private static RegistrationForm r = new RegistrationForm();
+    private static SignedInUser s = new SignedInUser();
 
     public static void main(String[] args) {
         launch(args);
@@ -46,14 +44,14 @@ public class Main extends Application {
         Label userName = new Label("User Name:"); // UserName
         grid.add(userName, 0, 1);
 
-        TextField userTextField = new TextField(); // Password
-        grid.add(userTextField, 1, 1);
+        TextField userNameField = new TextField(); // Password
+        grid.add(userNameField, 1, 1);
 
         Label password = new Label("Password:");
         grid.add(password, 0, 2);
 
-        PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
+        PasswordField passwordField = new PasswordField();
+        grid.add(passwordField, 1, 2);
 
         Button signIn = new Button("Sign in"); // Sign in button
         Button signUp = new Button("Sign up"); // Sign up button
@@ -71,24 +69,20 @@ public class Main extends Application {
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        signIn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (userName.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
-                            "Error!", "Please enter your username");
-                    return;
-                } if (password.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
-                            "Error!", "Please enter your password");
-                    return;
-                } else {
-                    /*showAlert(Alert.AlertType.CONFIRMATION, grid.getScene().getWindow(),
-                            "Sign Up Successful", "Welcome " + userName.getText());*/
-                    SignedInUser.display("Welcome");
-                }
+        signIn.setOnAction(e -> { // Sign in window with error handling
+            if (userNameField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                        "Error!", "Please enter your username");
+                return;
+            } if (passwordField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                        "Error!", "Please enter your password");
+                return;
+            } else {
+                s.start(window);
             }
         });
+
         signUp.setOnAction(e -> RegistrationForm.display()); // Sign up window
         window.setOnCloseRequest(e -> {
            e.consume();
@@ -99,7 +93,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message){
+    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
