@@ -8,6 +8,8 @@ import javafx.geometry.*;
 
 public class SignedInUser {
 
+    private static FlightBooking f = new FlightBooking();
+
     public static void display(String title) {
         Stage window = new Stage();
 
@@ -23,7 +25,13 @@ public class SignedInUser {
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
         editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
-        bookFlight.setOnAction(e -> System.out.println("Book a flight clicked"));
+        bookFlight.setOnAction(e -> {
+            try {
+                f.start(window);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }); // System.out.println("Book a flight clicked"));
         cancelFlight.setOnAction(e -> System.out.println("Cancel a flight clicked"));
         viewFlightStatus.setOnAction(e -> {
             FlightStatus.display("User", "Airline",
