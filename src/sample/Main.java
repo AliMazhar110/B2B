@@ -16,7 +16,7 @@ import javafx.stage.Window;
 
 public class Main extends Application {
 
-    Stage window;
+    private static Stage window;
     private static SignedInUser s = new SignedInUser();
 
     public static void main(String[] args) {
@@ -25,6 +25,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        welcomePage(primaryStage);
+    }
+
+    public static void welcomePage(Stage primaryStage) {
         window = primaryStage;
         primaryStage.setTitle("B2B Sign-In/Sign-Up//");
 
@@ -85,15 +89,15 @@ public class Main extends Application {
 
         signUp.setOnAction(e -> RegistrationForm.display()); // Sign up window
         window.setOnCloseRequest(e -> {
-           e.consume();
-           window.close();
+            e.consume();
+            window.close();
         });
         close.setOnAction(e -> window.close());
 
         primaryStage.show();
     }
 
-    private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

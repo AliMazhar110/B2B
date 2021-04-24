@@ -43,7 +43,7 @@ public class SignedInUser extends Application {
         });
         logout.setOnAction(e ->  {
             System.out.println("Successfully Logged out");
-            window.close();
+            Main.welcomePage(window);
         });
 
         VBox layout = new VBox(10);
