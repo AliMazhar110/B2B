@@ -16,9 +16,7 @@ public class SignedInUser extends Application {
     }
 
     public static void display(String title, Stage window) {
-
-        // to take input in this window only and not other open windows
-        // window.initModality(Modality.APPLICATION_MODAL);
+        
         window.setTitle(title);
 
         GridPane grid = new GridPane();
@@ -29,8 +27,6 @@ public class SignedInUser extends Application {
 
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
-
-        // window.setMinWidth(800);
 
         Label label = new Label();
         Button editProfile = new Button("Edit profile");
@@ -56,7 +52,6 @@ public class SignedInUser extends Application {
         layout.setAlignment(Pos.CENTER);
         grid.add(layout, 0, 1);
 
-        // window.setScene(scene);
         window.show();
     }
 }
