@@ -1,6 +1,6 @@
-package sample;
+// package sample;
 
-import javafx.application.Application;
+/*import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class RegistrationForm extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Registration Form");
@@ -106,7 +107,7 @@ public class RegistrationForm extends Application {
         gridPane.add(submitButton, 0, 5, 2, 1);
         GridPane.setHalignment(submitButton, HPos.CENTER);
         GridPane.setMargin(submitButton, new Insets(20,0,20,0));
-        submitButton.setOnAction(new EventHandler<ActionEvent>(){
+        submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if(nameField.getText().isEmpty()){
@@ -139,5 +140,5 @@ public class RegistrationForm extends Application {
     }
     public static void main(String[] args){
         launch(args);
-    }
-}
+    } 
+}*/

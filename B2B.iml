@@ -23,6 +23,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="JavaFXLibraries" level="application" />
+    <orderEntry type="library" name="JavaFXLibraries" level="project" />
   </component>
 </module>

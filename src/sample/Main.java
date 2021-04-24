@@ -1,4 +1,4 @@
-package sample;
+// package sample;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Stage window;
+    // private static RegistrationForm r = new RegistrationForm();
 
     public static void main(String[] args) {
         launch(args);
@@ -29,6 +30,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        String[] args;
         window = primaryStage;
         primaryStage.setTitle("JavaFX Welcome");
 
@@ -36,7 +38,7 @@ public class Main extends Application {
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setPadding(new Insets(40, 40, 40, 40));
 
         Scene scene = new Scene(grid, 800, 675);
         primaryStage.setScene(scene);
@@ -57,24 +59,24 @@ public class Main extends Application {
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
 
-        Button btn = new Button("Sign in");
-        Button createAccount = new Button("Sign up");
+        Button signIn = new Button("Sign in");
+        Button signUp = new Button("Sign up");
         Button close = new Button("Exit");
         Label label = new Label();
         HBox hbBtn = new HBox(10);
         VBox vbBtn = new VBox(10);
         vbBtn.setAlignment(Pos.BOTTOM_LEFT);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        vbBtn.getChildren().addAll(label, createAccount, close);
-        hbBtn.getChildren().add(btn);
+        vbBtn.getChildren().addAll(label, signUp, close);
+        hbBtn.getChildren().add(signIn);
         grid.add(vbBtn, 0, 4);
         grid.add(hbBtn, 1, 4);
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        btn.setOnAction(e -> SignedInUser.display("Welcome"));
-        createAccount.setOnAction(e -> System.out.println("Create account clicked"));
+        signIn.setOnAction(e -> SignedInUser.display("Welcome"));
+        signUp.setOnAction(e -> System.out.println("Create account clicked"));
         window.setOnCloseRequest(e -> {
            e.consume();
            window.close();
