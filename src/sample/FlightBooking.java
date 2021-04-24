@@ -5,10 +5,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -60,11 +57,16 @@ public class FlightBooking extends Application {
                 "Chennai",
                 "Kolkata","Delhi"
         );
-
+        DatePicker date = new DatePicker();
+        DatePicker return_date = new DatePicker();
         gridpane.add(new Label("From: "),0,1);
         gridpane.add(from, 1, 1);
         gridpane.add(new Label("TO: "),4,1);
         gridpane.add(to, 5, 1);
+        gridpane.add(new Label("Date: "),0, 2);
+        gridpane.add(date,1,2);
+        gridpane.add(new Label("Return Date: "),4, 2);
+        gridpane.add(return_date,5,2);
         Button button = new Button("Book");
         button.setPrefHeight(40);
         button.setDefaultButton(true);
