@@ -12,10 +12,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class FlightBooking extends Application {
+public class FlightBooking {
     /* public static void main(String[] args){
         launch(args);
-    } */
+    }
     @Override
     public void start(Stage stage) throws Exception{
         stage.setTitle("Book Flight");
@@ -24,8 +24,18 @@ public class FlightBooking extends Application {
         Scene scene = new Scene(gridpane, 800, 500);
         stage.setScene(scene);
         stage.show();
+    }*/
+
+    public static void display() {
+        Stage stage = new Stage();
+        stage.setTitle("Book Flight");
+        GridPane gridpane = createBookingPane();
+        addUIControls(gridpane);
+        Scene scene = new Scene(gridpane, 800, 500);
+        stage.setScene(scene);
+        stage.show();
     }
-    private GridPane createBookingPane(){
+    private static GridPane createBookingPane(){
         //Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
         //Position the pane at the center of the screen, both vertically and horizontally
@@ -39,7 +49,7 @@ public class FlightBooking extends Application {
 
         return gridPane;
     }
-    private void addUIControls(GridPane gridpane){
+    private static void addUIControls(GridPane gridpane){
         Label headerLabel = new Label("Book Flight");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         gridpane.add(headerLabel, 2,0,2,1);
@@ -100,7 +110,7 @@ public class FlightBooking extends Application {
             showAlert(Alert.AlertType.CONFIRMATION, gridpane.getScene().getWindow(), "Booked Successfully","From "+from.getValue().toString() + " To "+to.getValue().toString());
         });
     }
-    private void showAlert(Alert.AlertType alertType, Window owner,String title, String message){
+    private static void showAlert(Alert.AlertType alertType, Window owner,String title, String message){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

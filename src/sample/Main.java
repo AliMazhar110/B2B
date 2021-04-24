@@ -89,13 +89,7 @@ public class Main extends Application {
                 }
             }
         });
-        signUp.setOnAction(e -> {
-            try {
-                r.start(window);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
+        signUp.setOnAction(e -> RegistrationForm.display()); // Sign up window
         window.setOnCloseRequest(e -> {
            e.consume();
            window.close();

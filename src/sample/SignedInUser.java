@@ -25,13 +25,7 @@ public class SignedInUser {
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
         editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
-        bookFlight.setOnAction(e -> {
-            try {
-                f.start(window);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }); // System.out.println("Book a flight clicked"));
+        bookFlight.setOnAction(e -> FlightBooking.display());
         cancelFlight.setOnAction(e -> System.out.println("Cancel a flight clicked"));
         viewFlightStatus.setOnAction(e -> {
             FlightStatus.display("User", "Airline",

@@ -16,9 +16,9 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class RegistrationForm extends Application {
+public class RegistrationForm {
 
-    @Override
+   /* @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Registration Form");
         // Create the registration form pane
@@ -30,8 +30,22 @@ public class RegistrationForm extends Application {
         // Set the scene in primary stage
         primaryStage.setScene(scene);
         primaryStage.show();
+    }*/
+
+    public static void display() {
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Registration Form");
+        // Create the registration form pane
+        GridPane gridPane = createRegistrationFormPane();
+        // Add UI controls to the registration form grid Pane
+        addUIControls(gridPane);
+        //Create a scene with the registration form gridPane as the root node.
+        Scene scene = new Scene(gridPane, 800, 500);
+        // Set the scene in primary stage
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
-    private GridPane createRegistrationFormPane(){
+    private static GridPane createRegistrationFormPane(){
         //Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
         //Position the pane at the center of the screen, both vertically and horizontally
@@ -55,7 +69,7 @@ public class RegistrationForm extends Application {
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstraints);
         return gridPane;
     }
-    private void addUIControls(GridPane gridPane){
+    private static void addUIControls(GridPane gridPane){
         //Add Header
         Label headerLabel = new Label("Fill The Details - ");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -135,7 +149,8 @@ public class RegistrationForm extends Application {
             }
         });
     }
-    private void showAlert(Alert.AlertType alertType, Window owner,String title, String message){
+    private static void showAlert(Alert.AlertType alertType,
+                                  Window owner,String title, String message){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
