@@ -16,7 +16,7 @@ public class SignedInUser extends Application {
     }
 
     public static void display(String title, Stage window) {
-        
+
         window.setTitle(title);
 
         GridPane grid = new GridPane();
