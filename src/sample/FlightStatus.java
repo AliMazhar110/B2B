@@ -32,12 +32,11 @@ public class FlightStatus {
         HBox horizontal = new HBox(10);
         vertical.setAlignment(Pos.CENTER_LEFT);
         horizontal.setAlignment(Pos.BOTTOM_CENTER);
-        vertical.getChildren().add();
+        vertical.getChildren().add(name);
+        horizontal.getChildren().addAll(airline, flight, departure);
 
-        grid.add(name, 0, 2);
-        grid.add(airline, 1, 1);
-        grid.add(flight, 1, 3);
-        grid.add(departure, 2, 1);
+        grid.add(vertical, 0, 2);
+        grid.add(horizontal, 1, 1);
 
         window.showAndWait();
     }
