@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Stage window;
-    // private static RegistrationForm r = new RegistrationForm();
+    private static RegistrationForm r = new RegistrationForm();
 
     public static void main(String[] args) {
         launch(args);
@@ -30,7 +30,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        String[] args;
+        // String[] args;
         window = primaryStage;
         primaryStage.setTitle("JavaFX Welcome");
 
@@ -76,7 +76,13 @@ public class Main extends Application {
         grid.add(actiontarget, 1, 6);
 
         signIn.setOnAction(e -> SignedInUser.display("Welcome"));
-        signUp.setOnAction(e -> System.out.println("Create account clicked"));
+        signUp.setOnAction(e -> {
+            try {
+                r.start(window);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });// System.out.println("Create account clicked"));
         window.setOnCloseRequest(e -> {
            e.consume();
            window.close();

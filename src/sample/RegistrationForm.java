@@ -1,6 +1,6 @@
 package sample;
 
-/*import javafx.application.Application;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -138,7 +138,7 @@ public class RegistrationForm extends Application {
         alert.initOwner(owner);
         alert.show();
     }
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         launch(args);
-    } 
-}*/
+    } */
+}

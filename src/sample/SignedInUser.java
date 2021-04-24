@@ -25,7 +25,10 @@ public class SignedInUser {
         editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
         bookFlight.setOnAction(e -> System.out.println("Book a flight clicked"));
         cancelFlight.setOnAction(e -> System.out.println("Cancel a flight clicked"));
-        viewFlightStatus.setOnAction(e -> System.out.println("View Flight status clicked"));
+        viewFlightStatus.setOnAction(e -> {
+            FlightStatus.display("User", "Airline",
+                    "Flight Number", "Departure time");
+        });// System.out.println("View Flight status clicked"));
         logout.setOnAction(e ->  {
             System.out.println("Successfully Logged out");
             window.close();
