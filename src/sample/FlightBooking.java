@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,13 +12,24 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class FlightBooking {
-
-    public static void display() {
-        Stage stage = new Stage();
+public class FlightBooking extends Application {
+    private static SignedInUser menu = new SignedInUser();
+    @Override
+    public void start(Stage stage) {
         stage.setTitle("Book Flight");
         GridPane gridpane = createBookingPane();
         addUIControls(gridpane);
+        // Add Back Button
+        Button back_button = new Button("Back");
+        back_button.setPrefHeight(40);
+        back_button.setDefaultButton(true);
+        back_button.setPrefWidth(100);
+        gridpane.add(back_button ,0 ,3,2,1);
+        GridPane.setHalignment(back_button, HPos.LEFT);
+        GridPane.setMargin(back_button, new Insets(20,0,20,0));
+        back_button.setOnAction(e ->{
+            menu.start(stage);
+        });
         Scene scene = new Scene(gridpane, 800, 675);
         stage.setScene(scene);
         stage.show();
@@ -61,11 +73,14 @@ public class FlightBooking {
         gridpane.add(to, 5, 1);
         gridpane.add(new Label("Date: "),0, 2);
         gridpane.add(date,1,2);
+        gridpane.add(new Label("No. Of Passengers = "),4,2);
+        TextField passengers = new TextField();
+        gridpane.add(passengers,5,2);
         Button button = new Button("Book");
         button.setPrefHeight(40);
         button.setDefaultButton(true);
         button.setPrefWidth(100);
-        gridpane.add(button ,3 ,3);
+        gridpane.add(button ,1 ,3,2,1);
         GridPane.setHalignment(button, HPos.RIGHT);
         GridPane.setMargin(button, new Insets(20,0,20,0));
         button.setOnAction(actionEvent -> {
@@ -85,14 +100,7 @@ public class FlightBooking {
                         "Error!" ,"Please enter your Destination");
                 return;
             }
-//                if(emailField.getText().isEmpty()){
-//                    showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(), "Error!", "Please enter your email");
-//                    return;
-//                }
-//                if(passwordField.getText().isEmpty()){
-//                    showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(), "Error!", "Please enter your password");
-//                    return;
-//                }
+
             showAlert(Alert.AlertType.CONFIRMATION, gridpane.getScene().getWindow(),
                     "Booked Successfully","From "+from.getValue().toString() + " To "+to.getValue().toString());
         });

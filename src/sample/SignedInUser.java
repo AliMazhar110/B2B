@@ -8,7 +8,7 @@ import javafx.geometry.*;
 import javafx.application.Application;
 
 public class SignedInUser extends Application {
-
+    private static FlightBooking book = new FlightBooking();
     @Override
     public void start(Stage window) {
         String title = "message";
@@ -35,7 +35,9 @@ public class SignedInUser extends Application {
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
         editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
-        bookFlight.setOnAction(e -> FlightBooking.display());
+        bookFlight.setOnAction(e -> {
+            book.start(window);
+        });
         cancelFlight.setOnAction(e -> System.out.println("Cancel a flight clicked"));
         viewFlightStatus.setOnAction(e -> {
             FlightStatus.display("User", "Airline",
