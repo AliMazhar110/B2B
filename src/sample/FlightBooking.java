@@ -14,8 +14,12 @@ import javafx.stage.Window;
 
 public class FlightBooking extends Application {
     private static SignedInUser menu = new SignedInUser();
+    private static SelectSeats seats = new SelectSeats();
+    private static int pass;
+    private static Stage window;
     @Override
     public void start(Stage stage) {
+        window = stage;
         stage.setTitle("Book Flight");
         GridPane gridpane = createBookingPane();
         addUIControls(gridpane);
@@ -100,11 +104,33 @@ public class FlightBooking extends Application {
                         "Error!" ,"Please enter your Destination");
                 return;
             }
-
-            showAlert(Alert.AlertType.CONFIRMATION, gridpane.getScene().getWindow(),
-                    "Booked Successfully","From "+from.getValue().toString() + " To "+to.getValue().toString());
+            try{
+                String d = date.getValue().toString();
+            }
+            catch (Exception e){
+                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                        "Error!" ,"Please enter Date");
+                return;
+            }
+            if(passengers.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                        "Error!", "Please enter no of passengers");
+                return;
+            }
+            if(!passengers.getText().isEmpty()){
+                pass = Integer.parseInt(passengers.toString());
+            }
+            try {
+                seats.start(window);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
+    public static int getPassengers(){
+        return pass;
+    }
+
     private static void showAlert(Alert.AlertType alertType,
                                   Window owner,String title, String message){
         Alert alert = new Alert(alertType);

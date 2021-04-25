@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,17 +16,29 @@ import java.io.FileNotFoundException;
 
 
 public class SelectSeats extends Application {
+    private static FlightBooking flight = new FlightBooking();
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
         addUIGridPane(gridPane);
+        //Add Back Button
+        Button back_button = new Button("Back");
+        back_button.setPrefHeight(40);
+        back_button.setDefaultButton(true);
+        back_button.setPrefWidth(100);
+        gridPane.add(back_button ,5 ,14,2,1);
+        GridPane.setHalignment(back_button, HPos.LEFT);
+        GridPane.setMargin(back_button, new Insets(20,0,20,0));
+        back_button.setOnAction(e ->{
+            flight.start(primaryStage);
+        });
         Scene scene = new Scene(gridPane,800,675);
         primaryStage.setScene(scene);
         primaryStage.show();
         gridPane.requestFocus();
     }
-    private void addUIGridPane(GridPane gridPane) throws FileNotFoundException {
+    private void addUIGridPane(GridPane gridPane) throws Exception {
         gridPane.setAlignment(Pos.TOP_LEFT);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -66,7 +80,34 @@ public class SelectSeats extends Application {
                 count++;
             }
         }
-
+        count = 0;
+        int pass =0;
+        int limit = FlightBooking.getPassengers();
+        while(pass < limit) {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Button button = btns_left[count];
+                    button.setOnAction(e -> {
+                        button.setDisable(true);
+                    });
+                    if(button.isDisable()){
+                        pass++;
+                    }
+                }
+            }
+            count=0;
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Button button = btns_left[count];
+                    button.setOnAction(e -> {
+                        button.setDisable(true);
+                    });
+                    if(button.isDisable()){
+                        pass++;
+                    }
+                }
+            }
+        }
     }
     public static void main(String[] args){
         launch(args);
