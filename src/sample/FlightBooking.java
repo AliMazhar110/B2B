@@ -73,14 +73,16 @@ public class FlightBooking {
                 String f = from.getValue().toString();
             }
             catch(Exception e){
-                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(), "Error!", "Please enter Your Source.");
+                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                        "Error!", "Please enter Your Source.");
                 return;
             }
             try{
                 String t = to.getValue().toString();
             }
             catch(Exception e){
-                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(), "Error!" ,"Please enter your Destination");
+                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                        "Error!" ,"Please enter your Destination");
                 return;
             }
 //                if(emailField.getText().isEmpty()){
@@ -91,10 +93,12 @@ public class FlightBooking {
 //                    showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(), "Error!", "Please enter your password");
 //                    return;
 //                }
-            showAlert(Alert.AlertType.CONFIRMATION, gridpane.getScene().getWindow(), "Booked Successfully","From "+from.getValue().toString() + " To "+to.getValue().toString());
+            showAlert(Alert.AlertType.CONFIRMATION, gridpane.getScene().getWindow(),
+                    "Booked Successfully","From "+from.getValue().toString() + " To "+to.getValue().toString());
         });
     }
-    private static void showAlert(Alert.AlertType alertType, Window owner,String title, String message){
+    private static void showAlert(Alert.AlertType alertType,
+                                  Window owner,String title, String message){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);

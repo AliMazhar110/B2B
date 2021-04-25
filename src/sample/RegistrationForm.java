@@ -55,14 +55,17 @@ public class RegistrationForm extends Application {
 
         //Add Column Constraints
         //columnOneConstraints will be applied to all the nodes placed in column one.
-        ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(
+                100, 100, Double.MAX_VALUE);
         columnOneConstraints.setHalignment(HPos.RIGHT);
 
         //columnTwoConstraints will be applied to all the nodes placed in column two.
-        ColumnConstraints columnTwoConstraints = new ColumnConstraints(200, 200, Double.MAX_VALUE);
+        ColumnConstraints columnTwoConstraints = new ColumnConstraints(
+                200, 200, Double.MAX_VALUE);
         columnTwoConstraints.setHgrow(Priority.ALWAYS);
 
-        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstraints);
+        gridPane.getColumnConstraints().addAll(columnOneConstraints,
+                columnTwoConstraints);
         return gridPane;
     }
     private static void addUIControls(GridPane gridPane){
