@@ -18,7 +18,7 @@ public class Main extends Application {
 
     private static Stage window;
     private static SignedInUser s = new SignedInUser();
-
+    private static RegistrationForm r = new RegistrationForm();
     public static void main(String[] args) {
         launch(args);
     }
@@ -87,7 +87,9 @@ public class Main extends Application {
             }
         });
 
-        signUp.setOnAction(e -> RegistrationForm.display()); // Sign up window
+        signUp.setOnAction(e ->{
+            r.start(primaryStage);
+        }); // Sign up window
         window.setOnCloseRequest(e -> {
             e.consume();
             window.close();

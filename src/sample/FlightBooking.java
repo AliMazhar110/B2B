@@ -18,7 +18,7 @@ public class FlightBooking {
         stage.setTitle("Book Flight");
         GridPane gridpane = createBookingPane();
         addUIControls(gridpane);
-        Scene scene = new Scene(gridpane, 800, 500);
+        Scene scene = new Scene(gridpane, 800, 675);
         stage.setScene(scene);
         stage.show();
     }
@@ -55,21 +55,18 @@ public class FlightBooking {
                 "Kolkata","Delhi"
         );
         DatePicker date = new DatePicker();
-        DatePicker return_date = new DatePicker();
         gridpane.add(new Label("From: "),0,1);
         gridpane.add(from, 1, 1);
         gridpane.add(new Label("TO: "),4,1);
         gridpane.add(to, 5, 1);
         gridpane.add(new Label("Date: "),0, 2);
         gridpane.add(date,1,2);
-        gridpane.add(new Label("Return Date: "),4, 2);
-        gridpane.add(return_date,5,2);
         Button button = new Button("Book");
         button.setPrefHeight(40);
         button.setDefaultButton(true);
         button.setPrefWidth(100);
         gridpane.add(button ,3 ,3);
-        GridPane.setHalignment(button, HPos.CENTER);
+        GridPane.setHalignment(button, HPos.RIGHT);
         GridPane.setMargin(button, new Insets(20,0,20,0));
         button.setOnAction(actionEvent -> {
             try{

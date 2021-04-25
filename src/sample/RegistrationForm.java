@@ -1,7 +1,6 @@
 package sample;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,17 +14,29 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class RegistrationForm {
-
-    public static void display() {
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Registration Form");
+public class RegistrationForm extends Application {
+    private static Main m = new Main();
+    @Override
+    public void start(Stage primaryStage){
+        primaryStage.setTitle("Sign UP");
         // Create the registration form pane
         GridPane gridPane = createRegistrationFormPane();
         // Add UI controls to the registration form grid Pane
         addUIControls(gridPane);
+
+        //Add Back Button
+        Button backButton = new Button("Back");
+        backButton.setPrefHeight(40);
+        backButton.setDefaultButton(true);
+        backButton.setPrefWidth(100);
+        gridPane.add(backButton, 1, 6, 2, 1);
+        GridPane.setHalignment(backButton, HPos.LEFT);
+        GridPane.setMargin(backButton, new Insets(20,0,20,0));
+        backButton.setOnAction(e ->{
+            m.start(primaryStage);
+        });
         //Create a scene with the registration form gridPane as the root node.
-        Scene scene = new Scene(gridPane, 800, 500);
+        Scene scene = new Scene(gridPane, 800, 675);
         // Set the scene in primary stage
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -89,46 +100,59 @@ public class RegistrationForm {
         emailField.setPrefHeight(30);
         gridPane.add(emailField, 1,3);
 
+        // Add Mobile Label
+        Label mobileLabel = new Label("Mobile No: ");
+        gridPane.add(mobileLabel,0,4);
+
+        //Add Mobile Text Field
+        TextField mobileField = new TextField();
+        mobileField.setPrefHeight(30);
+        gridPane.add(mobileField,1,4);
         //Add Password Label
         Label passwordLabel = new Label("Password : ");
-        gridPane.add(passwordLabel, 0, 4);
+        gridPane.add(passwordLabel, 0, 5);
 
         //Add Password Field
         PasswordField passwordField = new PasswordField();
         passwordField.setPrefHeight(30);
-        gridPane.add(passwordField, 1 , 4);
+        gridPane.add(passwordField, 1 , 5);
 
         //Add Register Button
         Button submitButton = new Button("Register");
         submitButton.setPrefHeight(40);
         submitButton.setDefaultButton(true);
         submitButton.setPrefWidth(100);
-        gridPane.add(submitButton, 0, 5, 2, 1);
-        GridPane.setHalignment(submitButton, HPos.CENTER);
+        gridPane.add(submitButton, 0, 6, 2, 1);
+        GridPane.setHalignment(submitButton, HPos.RIGHT);
         GridPane.setMargin(submitButton, new Insets(20,0,20,0));
         submitButton.setOnAction(e -> {
-                if(nameField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                            "Error!", "Please enter your name");
-                    return;
-                }
-                if(userField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                            "Error!" ,"Please enter your username");
-                    return;
-                }
-                if(emailField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                            "Error!", "Please enter your email");
-                    return;
-                }
-                if(passwordField.getText().isEmpty()){
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                            "Error!", "Please enter your password");
-                    return;
-                }
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                        "Sign Up Successful","Welcome "+userField.getText());
+            if(nameField.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Please enter your name");
+                return;
+            }
+            if(userField.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!" ,"Please enter your username");
+                return;
+            }
+            if(emailField.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Please enter your email");
+                return;
+            }
+            if(mobileField.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Please enter your password");
+                return;
+            }
+            if(passwordField.getText().isEmpty()){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Please enter your password");
+                return;
+            }
+            showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
+                    "Sign Up Successful","Welcome "+userField.getText());
         });
     }
     private static void showAlert(Alert.AlertType alertType,
@@ -139,5 +163,8 @@ public class RegistrationForm {
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 }
