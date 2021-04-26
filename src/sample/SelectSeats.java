@@ -30,7 +30,7 @@ public class SelectSeats extends Application {
         gridPane.setBackground(new Background(new BackgroundFill(Color.TAN, CornerRadii.EMPTY, Insets.EMPTY)));
         addUIGridPane(gridPane);
         //Add Back Button
-        Button back_button = new Button("Back");
+        Button back_button = new Button("BACK");
         back_button.setPrefHeight(40);
         back_button.setDefaultButton(true);
         back_button.setPrefWidth(100);
@@ -115,7 +115,7 @@ public class SelectSeats extends Application {
             }
         }
 
-        Button book = new Button("Pay");
+        Button book = new Button("BOOK");
         book.setPrefHeight(40);
         book.setDefaultButton(true);
         book.setPrefWidth(100);
