@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 public class SelectSeats extends Application {
     private static FlightBooking flight = new FlightBooking();
     private int pass;
+    private int[] seats = new int[50];
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Select Seats");
@@ -89,7 +90,6 @@ public class SelectSeats extends Application {
                 count++;
             }
         }
-        int[] seats = new int[50];
         count = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 2; j++) {
@@ -126,8 +126,15 @@ public class SelectSeats extends Application {
         GridPane.setMargin(book, new Insets(20, 0, 20, 0));
         book.setOnAction(e -> {
             showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                    "Seats Booked","last seat booked ="+seats[pass-1]);
+                    "Seats Booked","last seat booked ="+getMessage());
         });
+    }
+    private String getMessage(){
+        String str = "";
+        for(int i=0;i<pass;i++){
+            str += seats[i] + ", ";
+        }
+        return str;
     }
     private static void showAlert(Alert.AlertType alertType,
                                   Window owner, String title, String message){
