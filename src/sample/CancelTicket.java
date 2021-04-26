@@ -55,7 +55,7 @@ public class CancelTicket extends Application {
 
         grid.add(v, 0, 2);
         grid.add(secondColumn, 2, 2);
-        grid.add(back, 0, 4);
+        grid.add(back, 1, 4);
 
         window.show();
     }

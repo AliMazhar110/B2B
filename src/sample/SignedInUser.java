@@ -51,7 +51,7 @@ public class SignedInUser extends Application {
             }
         });
         viewFlightStatus.setOnAction(e -> {
-            FlightStatus.display("User", "Airline",
+            FlightStatus.display(window, "User", "Airline",
                     "Flight Number", "Departure time");
         });
         logout.setOnAction(e ->  {

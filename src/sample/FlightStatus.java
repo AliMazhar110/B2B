@@ -7,10 +7,11 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 public class FlightStatus {
-    
-    public static void display(String nameOfUser, String airlineName,
+
+    private static SignedInUser s = new SignedInUser();
+
+    public static void display(Stage window, String nameOfUser, String airlineName,
                                String flightNumber, String time) {
-        Stage window = new Stage();
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -18,10 +19,9 @@ public class FlightStatus {
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
 
-        window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Flight status");
 
-        Scene scene = new Scene(grid, 300, 300);
+        Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
 
         Label name = new Label(nameOfUser);
@@ -34,11 +34,11 @@ public class FlightStatus {
         vertical.getChildren().addAll(name, airline, flight, departure);
 
         Button exitWindow = new Button("Back");
-        exitWindow.setOnAction(e -> window.close());
+        exitWindow.setOnAction(e -> s.start(window));
 
         grid.add(exitWindow, 0, 4);
         grid.add(vertical, 0, 2);
 
-        window.showAndWait();
+        window.show();
     }
 }

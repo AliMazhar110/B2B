@@ -45,7 +45,7 @@ public class Ticket extends Application {
 
         grid.add(vertical, 0, 2);
         grid.add(verticalSecondColumn, 2, 2);
-        grid.add(back, 0, 4);
+        grid.add(back, 1, 4);
 
         window.show();
     }
