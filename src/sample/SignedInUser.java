@@ -10,6 +10,7 @@ import javafx.application.Application;
 public class SignedInUser extends Application {
     private static FlightBooking book = new FlightBooking();
     private static Ticket t = new Ticket();
+    private static CancelTicket c = new CancelTicket();
 
     @Override
     public void start(Stage window) {
@@ -42,7 +43,13 @@ public class SignedInUser extends Application {
         bookFlight.setOnAction(e -> {
             book.start(window);
         });
-        cancelFlight.setOnAction(e -> System.out.println("Cancel a flight clicked"));
+        cancelFlight.setOnAction(e -> {
+            try {
+                c.start(window);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
         viewFlightStatus.setOnAction(e -> {
             FlightStatus.display("User", "Airline",
                     "Flight Number", "Departure time");
