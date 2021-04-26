@@ -13,7 +13,7 @@ public class SignedInUser extends Application {
 
     @Override
     public void start(Stage window) {
-        String title = "message";
+        String title = "Welcome user";
         display(title, window);
     }
 
@@ -60,7 +60,7 @@ public class SignedInUser extends Application {
         });
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, viewFlightStatus,
+        layout.getChildren().addAll(label, viewBoardingPass,
                 viewFlightStatus, editProfile, bookFlight,
                 cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);
