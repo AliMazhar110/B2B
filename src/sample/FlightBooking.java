@@ -15,7 +15,6 @@ import javafx.stage.Window;
 public class FlightBooking extends Application {
     private static SignedInUser menu = new SignedInUser();
     private static SelectSeats seats = new SelectSeats();
-    private static int pass;
     private static Stage window;
     @Override
     public void start(Stage stage) {
@@ -117,18 +116,12 @@ public class FlightBooking extends Application {
                         "Error!", "Please enter no of passengers");
                 return;
             }
-            if(!passengers.getText().isEmpty()){
-                pass = Integer.parseInt(passengers.toString());
-            }
             try {
                 seats.start(window);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-    }
-    public static int getPassengers(){
-        return pass;
     }
 
     private static void showAlert(Alert.AlertType alertType,
