@@ -24,7 +24,7 @@ public class Ticket extends Application {
         grid.setPadding(new Insets(40, 40, 40, 40));
 
         window.setTitle("Boarding Pass");
-        Scene scene = new Scene(grid, 800, 800);
+        Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
 
         Label name = new Label("Name: ");
