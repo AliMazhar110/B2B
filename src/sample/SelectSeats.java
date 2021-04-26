@@ -5,28 +5,38 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
 import java.io.FileInputStream;
 
 public class SelectSeats extends Application {
     private static FlightBooking flight = new FlightBooking();
-    public static int pass=0;
+    private int pass;
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
+        gridPane.setBackground(new Background(new BackgroundFill(Color.TAN, CornerRadii.EMPTY, Insets.EMPTY)));
         addUIGridPane(gridPane);
         //Add Back Button
         Button back_button = new Button("Back");
         back_button.setPrefHeight(40);
         back_button.setDefaultButton(true);
         back_button.setPrefWidth(100);
-        gridPane.add(back_button, 5, 14, 2, 1);
-        GridPane.setHalignment(back_button, HPos.LEFT);
+        back_button.setTranslateX(200);
+        back_button.setTranslateY(25);
+        gridPane.add(back_button, 0, 15, 2, 1);
+        GridPane.setHalignment(back_button, HPos.CENTER);
         GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
             flight.start(primaryStage);
@@ -79,17 +89,16 @@ public class SelectSeats extends Application {
                 count++;
             }
         }
+        int[] seats = new int[50];
         count = 0;
-        //int limit = FlightBooking.getPassengers();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 2; j++) {
                 Button button = btns_left[count];
+                int finalCount = count;
                 button.setOnAction(e -> {
                     button.setDisable(true);
+                    seats[pass++] = finalCount +1;
                 });
-                if (button.isDisable()) {
-                    pass++;
-                }
                 count++;
             }
         }
@@ -97,17 +106,38 @@ public class SelectSeats extends Application {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 3; j++) {
                 Button button = btns_right[count];
+                int finalCount = count;
                 button.setOnAction(e -> {
                     button.setDisable(true);
+                    seats[pass++] = finalCount +21;
                 });
-                if (button.isDisable()) {
-                    pass++;
-                }
                 count++;
             }
         }
 
-}
+        Button book = new Button("Pay");
+        book.setPrefHeight(40);
+        book.setDefaultButton(true);
+        book.setPrefWidth(100);
+        book.setTranslateX(200);
+        book.setTranslateY(25);
+        gridPane.add(book, 9, 15,2,1);
+        GridPane.setHalignment(book, HPos.LEFT);
+        GridPane.setMargin(book, new Insets(20, 0, 20, 0));
+        book.setOnAction(e -> {
+            showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
+                    "Seats Booked","last seat booked ="+seats[pass-1]);
+        });
+    }
+    private static void showAlert(Alert.AlertType alertType,
+                                  Window owner, String title, String message){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
+    }
 
     public static void main(String[] args) {
         launch(args);
