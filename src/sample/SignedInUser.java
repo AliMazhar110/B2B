@@ -9,13 +9,15 @@ import javafx.application.Application;
 
 public class SignedInUser extends Application {
     private static FlightBooking book = new FlightBooking();
+    private static Ticket t = new Ticket();
+
     @Override
     public void start(Stage window) {
         String title = "message";
         display(title, window);
     }
 
-    public static void display(String title, Stage window) {
+    private static void display(String title, Stage window) {
 
         window.setTitle(title);
 
@@ -34,6 +36,8 @@ public class SignedInUser extends Application {
         Button cancelFlight = new Button("Cancel a flight");
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
+        Button viewBoardingPass = new Button("View Boarding pass");
+
         editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
         bookFlight.setOnAction(e -> {
             book.start(window);
@@ -47,10 +51,18 @@ public class SignedInUser extends Application {
             System.out.println("Successfully Logged out");
             Main.welcomePage(window);
         });
+        viewBoardingPass.setOnAction(e -> {
+            try {
+                t.start(window);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, viewFlightStatus,
-                editProfile, bookFlight, cancelFlight, logout);
+                viewFlightStatus, editProfile, bookFlight,
+                cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);
         grid.add(layout, 0, 1);
 
