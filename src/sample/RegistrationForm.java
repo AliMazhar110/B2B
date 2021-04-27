@@ -16,6 +16,7 @@ import javafx.stage.Window;
 
 public class RegistrationForm extends Application {
     private static Main m = new Main();
+    static String email;
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("Sign UP");
@@ -144,6 +145,9 @@ public class RegistrationForm extends Application {
                         "Error!", "Please enter your email");
                 return;
             }
+            else{
+                email = emailField.getText();
+            }
             if(mobileField.getText().isEmpty()){
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your password");
@@ -154,8 +158,7 @@ public class RegistrationForm extends Application {
                         "Error!", "Please enter your password");
                 return;
             }
-            showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                    "Sign Up Successful","Welcome "+userField.getText());
+            CheckOTP.display();
         });
     }
     private static void showAlert(Alert.AlertType alertType,
