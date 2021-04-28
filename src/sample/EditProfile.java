@@ -68,7 +68,7 @@ public class EditProfile {
         VBox align = new VBox();
         align.setAlignment(Pos.CENTER);
         align.getChildren().addAll(confirm, back);
-        grid.add(align, 0, 4);
+        grid.add(align, 1, 8);
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
