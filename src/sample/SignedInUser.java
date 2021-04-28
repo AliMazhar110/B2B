@@ -39,26 +39,28 @@ public class SignedInUser extends Application {
         Button logout = new Button("Logout");
         Button viewBoardingPass = new Button("View Boarding pass");
 
-        editProfile.setOnAction(e -> System.out.println("Edit profile clicked"));
-        bookFlight.setOnAction(e -> {
+        editProfile.setOnAction(e -> { // Edit profile
+            EditProfile.display(window);
+        });
+        bookFlight.setOnAction(e -> { // Book flight
             book.start(window);
         });
-        cancelFlight.setOnAction(e -> {
+        cancelFlight.setOnAction(e -> { // cancel flight
             try {
                 c.start(window);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
         });
-        viewFlightStatus.setOnAction(e -> {
+        viewFlightStatus.setOnAction(e -> { // view flight status
             FlightStatus.display(window, "User", "Airline",
                     "Flight Number", "Departure time");
         });
-        logout.setOnAction(e ->  {
+        logout.setOnAction(e ->  { // logout
             System.out.println("Successfully Logged out");
             Main.welcomePage(window);
         });
-        viewBoardingPass.setOnAction(e -> {
+        viewBoardingPass.setOnAction(e -> { // view Boarding Pass
             try {
                 t.start(window);
             } catch (Exception exception) {
