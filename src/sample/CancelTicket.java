@@ -21,15 +21,21 @@ public class CancelTicket extends Application {
                 "Number Of Passengers", "Seat Number");
     }
 
-    private static void display(Stage window, String name, String airline,
-                                String flightNumber, String departure,
-                                String numberOfPassengers, String seatNumber) {
-
+    private static GridPane getGrid() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
+
+        return grid;
+    }
+
+    private static void display(Stage window, String name, String airline,
+                                String flightNumber, String departure,
+                                String numberOfPassengers, String seatNumber) {
+
+        GridPane grid = getGrid();
 
         window.setTitle("Cancel Ticket");
         Scene scene = new Scene(grid, 800, 675);
@@ -51,12 +57,41 @@ public class CancelTicket extends Application {
         secondColumn.getChildren().addAll(noOfPassengers, seatNo);
 
         Button back = new Button("Back");
+        Button cancelTicket = new Button("Cancel Ticket");
+        String message = "Cancel Ticket";
+        cancelTicket.setOnAction(e -> cancelTicketConfirmation(message));
         back.setOnAction(e -> s.start(window));
 
         grid.add(v, 0, 2);
         grid.add(secondColumn, 2, 2);
-        grid.add(back, 1, 4);
+        grid.add(back, 0, 4);
+        grid.add(cancelTicket, 2, 4);
 
         window.show();
+    }
+
+    public static void cancelTicketConfirmation(String message) {
+        Stage window = new Stage();
+
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("CONFIRMATION");
+        window.setMinWidth(250);
+
+        Label label = new Label();
+        label.setText(message);
+
+        Button confirm = new Button("Confirm");
+        Button back = new Button("Back");
+
+        confirm.setOnAction(e -> window.close());
+        back.setOnAction(e -> window.close());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, confirm, back);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
     }
 }
