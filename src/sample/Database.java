@@ -1,6 +1,7 @@
 package sample;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     private static final String url = "jdbc:mysql://localhost:3306/";
@@ -20,7 +21,7 @@ public class Database {
                         "\n7. Timings of all the flights");
     }
 
-    public static void access(int choice) {
+    public void access(int choice) {
         table = "world";
         try {
             Class.forName(className);
@@ -49,7 +50,7 @@ public class Database {
         }
     }
 
-    public static void insertUser(String name, String id, String passwd, String email, String mobile) {
+    public void insertUser(String name, String id, String passwd, String email, String mobile) {
         table = "users";
         try {
             Class.forName(className);
@@ -61,6 +62,30 @@ public class Database {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void loginUser(String id, String passwd) {
+        table = "users";
+        try {
+            Class.forName(className);
+            Connection con = DriverManager.getConnection(url+table, username, password);
+            Statement st = con.createStatement();
+            query = "select * from "+ table +";";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void bookFlight() {
+
+    }
+
+    public ArrayList showFlights(String source, String destination) {
+        return null;
     }
 }
 
