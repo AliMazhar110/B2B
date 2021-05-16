@@ -7,23 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="javafx-fxml">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/javafx-fxml-11.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-fxml-11-win.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-controls-11.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-controls-11-win.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-graphics-11.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-graphics-11-win.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-base-11.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/javafx-base-11-win.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="activation" level="application" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="application" />
+    <orderEntry type="library" name="java-fx" level="application" />
+    <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
   </component>
 </module>
