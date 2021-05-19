@@ -14,7 +14,7 @@ import javafx.stage.Window;
 
 public class FlightBooking extends Application {
     private static SignedInUser menu = new SignedInUser();
-    private static SelectSeats seats = new SelectSeats();
+    private static FlightList list = new FlightList();
     private static Stage window;
     @Override
     public void start(Stage stage) {
@@ -117,7 +117,7 @@ public class FlightBooking extends Application {
                 return;
             }
             try {
-                seats.start(window);
+                list.start(window);
             } catch (Exception e) {
                 e.printStackTrace();
             }

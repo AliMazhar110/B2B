@@ -20,7 +20,7 @@ import javafx.stage.Window;
 import java.io.FileInputStream;
 
 public class SelectSeats extends Application {
-    private static FlightBooking flight = new FlightBooking();
+    private static final FlightList list = new FlightList();
     private int pass;
     private int[] seats = new int[50];
     @Override
@@ -40,7 +40,7 @@ public class SelectSeats extends Application {
         GridPane.setHalignment(back_button, HPos.CENTER);
         GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
-            flight.start(primaryStage);
+            list.start(primaryStage);
         });
         Scene scene = new Scene(gridPane, 800, 675);
         primaryStage.setScene(scene);
