@@ -30,6 +30,7 @@ public class EditProfile {
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
 
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
+        Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
 
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
@@ -39,43 +40,50 @@ public class EditProfile {
         grid.add(scenetitle, 0, 0, 2, 1);
 
         Label fullName = new Label("Full Name: "); // Full Name
+        fullName.setFont(font);
         grid.add(fullName, 0, 1);
         TextField fullNameField = new TextField();
         grid.add(fullNameField, 1, 1);
 
         Label userName = new Label("User Name:"); // User Name
+        userName.setFont(font);
         grid.add(userName, 0, 2);
         TextField userNameField = new TextField();
         grid.add(userNameField, 1, 2);
 
         Label emailID = new Label("Email ID: "); // Email ID
+        emailID.setFont(font);
         grid.add(emailID, 0, 3);
         TextField emailIDField = new TextField();
         grid.add(emailIDField, 1, 3);
 
         Label mobileNo = new Label("Mobile No: "); // Mobile No
+        mobileNo.setFont(font);
         grid.add(mobileNo, 0, 4);
         TextField mobileNoField = new TextField();
         grid.add(mobileNoField, 1, 4);
 
         Label oldPassword = new Label("Old Password:"); // Old Password
+        oldPassword.setFont(font);
         grid.add(oldPassword, 0, 5);
         PasswordField oldPasswordField = new PasswordField();
         grid.add(oldPasswordField, 1, 5);
 
         Label newPassword = new Label("New Password:"); // New Password
+        newPassword.setFont(font);
         grid.add(newPassword, 0, 6);
         PasswordField newPasswordField = new PasswordField();
         grid.add(newPasswordField, 1, 6);
 
         Label confirmPassword = new Label("Confirm New Password:"); // Confirm Password
+        confirmPassword.setFont(font);
         grid.add(confirmPassword, 0, 7);
         PasswordField confirmPasswordField = new PasswordField();
         grid.add(confirmPasswordField, 1, 7);
 
         Button confirm = new Button("Confirm and Submit");
         Button back = new Button("Back");
-        VBox align = new VBox();
+        VBox align = new VBox(10);
         align.setAlignment(Pos.CENTER);
 
         confirm.setStyle("-fx-background-color: #FFA500;");

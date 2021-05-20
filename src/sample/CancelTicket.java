@@ -69,12 +69,14 @@ public class CancelTicket extends Application {
         Label time = new Label(departure);
         Label noOfPassengers = new Label(numberOfPassengers);
 
-        nameOfUser.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
-        flightProvider.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
-        flight.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
-        seatNo.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
-        time.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
-        noOfPassengers.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        Font font = Font.font("Century", FontWeight.EXTRA_BOLD, 16);
+
+        nameOfUser.setFont(font);
+        flightProvider.setFont(font);
+        flight.setFont(font);
+        seatNo.setFont(font);
+        time.setFont(font);
+        noOfPassengers.setFont(font);
 
         VBox v = new VBox(10);
         VBox secondColumn = new VBox(10);

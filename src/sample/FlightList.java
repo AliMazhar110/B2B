@@ -38,8 +38,8 @@ public class FlightList extends Application{
         gridPane.add(back_button,0,5,2,1);
         Button book = new Button("BOOK");
         book.setPrefHeight(40);
-        back_button.setStyle("-fx-background-color: #FFA500;");
-        back_button.setFont(Font.font("Century", FontWeight.NORMAL, 16));
+        book.setStyle("-fx-background-color: #FFA500;");
+        book.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         book.setPrefWidth(100);
         gridPane.add(book,3,5,2,1);
         GridPane.setHalignment(back_button, HPos.LEFT);

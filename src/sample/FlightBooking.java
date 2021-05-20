@@ -68,7 +68,7 @@ public class FlightBooking extends Application {
     }
     private static void addUIControls(GridPane gridpane){
         Label headerLabel = new Label("Book Flight");
-        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        headerLabel.setFont(Font.font("Century", FontWeight.BOLD, 28));
         gridpane.add(headerLabel, 2,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
