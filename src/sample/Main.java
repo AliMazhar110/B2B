@@ -5,14 +5,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Main extends Application {
 
@@ -24,15 +27,22 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        welcomePage(primaryStage);
+    public void start(Stage primaryStage){
+        try {
+            welcomePage(primaryStage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void welcomePage(Stage primaryStage) {
+    public static void welcomePage(Stage primaryStage) throws FileNotFoundException {
         window = primaryStage;
         primaryStage.setTitle("B2B Sign-In/Sign-Up//");
-
+        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        Image image = new Image(inputStream);
         GridPane grid = new GridPane();
+        grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -41,18 +51,22 @@ public class Main extends Application {
         Scene scene = new Scene(grid, 800, 675);
         primaryStage.setScene(scene);
 
+        Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
+
         Text scenetitle = new Text("Welcome");
-        scenetitle.setFont(Font.font("Century", FontWeight.NORMAL, 20));
+        scenetitle.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
         grid.add(scenetitle, 0, 0, 2, 1);
 
         Label userName = new Label("User Name:"); // UserName
         grid.add(userName, 0, 1);
+        userName.setFont(font);
 
         TextField userNameField = new TextField(); // Password
         grid.add(userNameField, 1, 1);
 
         Label password = new Label("Password:");
         grid.add(password, 0, 2);
+        password.setFont(font);
 
         PasswordField passwordField = new PasswordField();
         grid.add(passwordField, 1, 2);
@@ -69,6 +83,14 @@ public class Main extends Application {
         hbBtn.getChildren().add(signIn);
         grid.add(vbBtn, 0, 4);
         grid.add(hbBtn, 1, 4);
+
+        //signIn.setTextFill(Color.LIGHTBLUE);
+        //signUp.setTextFill(Color.LIGHTBLUE);
+        //close.setTextFill(Color.LIGHTBLUE);
+
+        signIn.setStyle("-fx-background-color: #FFA500;");
+        signUp.setStyle("-fx-background-color: #FFA500;");
+        close.setStyle("-fx-background-color: #FFA500;");
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
@@ -95,7 +117,7 @@ public class Main extends Application {
             window.close();
         });
         close.setOnAction(e -> window.close());
-
+        grid.requestFocus();
         primaryStage.show();
     }
 

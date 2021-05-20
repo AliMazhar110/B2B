@@ -1,11 +1,21 @@
 package sample;
 
+import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 import javafx.application.Application;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class CancelTicket extends Application {
 
@@ -21,12 +31,16 @@ public class CancelTicket extends Application {
                 "Number Of Passengers", "Seat Number");
     }
 
-    private static GridPane getGrid() {
+    private static GridPane getGrid() throws FileNotFoundException {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
+        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        Image image = new Image(inputStream);
+        grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
 
         return grid;
     }
@@ -35,11 +49,18 @@ public class CancelTicket extends Application {
                                 String flightNumber, String departure,
                                 String numberOfPassengers, String seatNumber) {
 
-        GridPane grid = getGrid();
+        GridPane grid = null;
+        try {
+            grid = getGrid();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         window.setTitle("Cancel Ticket");
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
+
+        Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
 
         Label nameOfUser = new Label(name);
         Label flightProvider = new Label(airline);
@@ -47,6 +68,13 @@ public class CancelTicket extends Application {
         Label seatNo = new Label(seatNumber);
         Label time = new Label(departure);
         Label noOfPassengers = new Label(numberOfPassengers);
+
+        nameOfUser.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        flightProvider.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        flight.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        seatNo.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        time.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
+        noOfPassengers.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 24));
 
         VBox v = new VBox(10);
         VBox secondColumn = new VBox(10);
@@ -58,6 +86,10 @@ public class CancelTicket extends Application {
 
         Button back = new Button("Back");
         Button cancelTicket = new Button("Cancel Ticket");
+        back.setStyle("-fx-background-color: #FFA500;");
+        back.setFont(btnFont);
+        cancelTicket.setStyle("-fx-background-color: #FFA500;");
+        cancelTicket.setFont(btnFont);
         String message = "Cancel Ticket";
         cancelTicket.setOnAction(e -> cancelTicketConfirmation(message));
         back.setOnAction(e -> s.start(window));

@@ -6,11 +6,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class FlightBooking extends Application {
     private static SignedInUser menu = new SignedInUser();
@@ -22,10 +26,12 @@ public class FlightBooking extends Application {
         stage.setTitle("Book Flight");
         GridPane gridpane = createBookingPane();
         addUIControls(gridpane);
+        Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
         // Add Back Button
         Button back_button = new Button("Back");
         back_button.setPrefHeight(40);
-        back_button.setDefaultButton(true);
+        back_button.setStyle("-fx-background-color: #FFA500;");
+        back_button.setFont(btnFont);
         back_button.setPrefWidth(100);
         gridpane.add(back_button ,0 ,3,2,1);
         GridPane.setHalignment(back_button, HPos.LEFT);
@@ -48,6 +54,15 @@ public class FlightBooking extends Application {
         gridPane.setHgap(10);
         //Set the vertical gap between rows
         gridPane.setVgap(10);
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("media/B2B-Background.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(inputStream);
+        gridPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
 
         return gridPane;
     }
@@ -69,6 +84,7 @@ public class FlightBooking extends Application {
                 "Chennai",
                 "Kolkata","Delhi"
         );
+        Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
         DatePicker date = new DatePicker();
         gridpane.add(new Label("From: "),0,1);
         gridpane.add(from, 1, 1);
@@ -81,7 +97,8 @@ public class FlightBooking extends Application {
         gridpane.add(passengers,5,2);
         Button button = new Button("Book");
         button.setPrefHeight(40);
-        button.setDefaultButton(true);
+        button.setStyle("-fx-background-color: #FFA500;");
+        button.setFont(btnFont);
         button.setPrefWidth(100);
         gridpane.add(button ,1 ,3,2,1);
         GridPane.setHalignment(button, HPos.RIGHT);

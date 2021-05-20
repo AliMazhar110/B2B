@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.image.Image;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -7,11 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class EditProfile {
 
     private static SignedInUser s = new SignedInUser();
 
-    public static void display(Stage window) {
+    public static void display(Stage window) throws FileNotFoundException {
 
         window.setTitle("Edit Profile");
 
@@ -20,12 +24,18 @@ public class EditProfile {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
+        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        Image image = new Image(inputStream);
+        grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
+
+        Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
 
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
 
         Text scenetitle = new Text("Enter the new details");
-        scenetitle.setFont(Font.font("Century", FontWeight.NORMAL, 20));
+        scenetitle.setFont(Font.font("Century", FontWeight.NORMAL, 28));
         grid.add(scenetitle, 0, 0, 2, 1);
 
         Label fullName = new Label("Full Name: "); // Full Name
@@ -67,6 +77,12 @@ public class EditProfile {
         Button back = new Button("Back");
         VBox align = new VBox();
         align.setAlignment(Pos.CENTER);
+
+        confirm.setStyle("-fx-background-color: #FFA500;");
+        confirm.setFont(btnFont);
+        back.setStyle("-fx-background-color: #FFA500;");
+        back.setFont(btnFont);
+
         align.getChildren().addAll(confirm, back);
         grid.add(align, 1, 8);
 

@@ -6,13 +6,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class FlightList extends Application{
     private static final FlightBooking flights = new FlightBooking();
@@ -28,12 +32,14 @@ public class FlightList extends Application{
         Scene scene = new Scene(gridPane, 800, 675);
         Button back_button = new Button("Back");
         back_button.setPrefHeight(40);
-        back_button.setDefaultButton(true);
+        back_button.setStyle("-fx-background-color: #FFA500;");
+        back_button.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         back_button.setPrefWidth(100);
         gridPane.add(back_button,0,5,2,1);
         Button book = new Button("BOOK");
         book.setPrefHeight(40);
-        book.setDefaultButton(true);
+        back_button.setStyle("-fx-background-color: #FFA500;");
+        back_button.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         book.setPrefWidth(100);
         gridPane.add(book,3,5,2,1);
         GridPane.setHalignment(back_button, HPos.LEFT);
@@ -64,6 +70,15 @@ public class FlightList extends Application{
         gridPane.setHgap(10);
         // set Vertical gap
         gridPane.setVgap(10);
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("media/B2B-Background.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(inputStream);
+        gridPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
 
         return gridPane;
     }

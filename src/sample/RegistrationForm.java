@@ -6,13 +6,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.scene.paint.Color;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class RegistrationForm extends Application {
     private static Main m = new Main();
@@ -21,14 +24,20 @@ public class RegistrationForm extends Application {
     public void start(Stage primaryStage){
         primaryStage.setTitle("Sign UP");
         // Create the registration form pane
-        GridPane gridPane = createRegistrationFormPane();
+        GridPane gridPane = null;
+        try {
+            gridPane = createRegistrationFormPane();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         // Add UI controls to the registration form grid Pane
         addUIControls(gridPane);
 
         //Add Back Button
         Button backButton = new Button("Back");
         backButton.setPrefHeight(40);
-        backButton.setDefaultButton(true);
+        backButton.setStyle("-fx-background-color: #FFA500;");
+        //backButton.setFont(Font.font("Verdana", FontWeight.NORMAL, 16));
         backButton.setPrefWidth(100);
         gridPane.add(backButton, 1, 6, 2, 1);
         GridPane.setHalignment(backButton, HPos.LEFT);
@@ -41,8 +50,9 @@ public class RegistrationForm extends Application {
         // Set the scene in primary stage
         primaryStage.setScene(scene);
         primaryStage.show();
+        gridPane.requestFocus();
     }
-    private static GridPane createRegistrationFormPane(){
+    private static GridPane createRegistrationFormPane() throws FileNotFoundException {
         //Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
         //Position the pane at the center of the screen, both vertically and horizontally
@@ -57,28 +67,37 @@ public class RegistrationForm extends Application {
         //Add Column Constraints
         //columnOneConstraints will be applied to all the nodes placed in column one.
         ColumnConstraints columnOneConstraints = new ColumnConstraints(
-                100, 100, Double.MAX_VALUE);
+                150, 150, Double.MAX_VALUE);
         columnOneConstraints.setHalignment(HPos.RIGHT);
 
         //columnTwoConstraints will be applied to all the nodes placed in column two.
         ColumnConstraints columnTwoConstraints = new ColumnConstraints(
-                200, 200, Double.MAX_VALUE);
+                250, 250, Double.MAX_VALUE);
         columnTwoConstraints.setHgrow(Priority.ALWAYS);
 
         gridPane.getColumnConstraints().addAll(columnOneConstraints,
                 columnTwoConstraints);
+
+        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        Image image = new Image(inputStream);
+        gridPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         return gridPane;
     }
     private static void addUIControls(GridPane gridPane){
+        Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         //Add Header
         Label headerLabel = new Label("Fill The Details - ");
-        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        // headerLabel.setTextFill(Color.PURPLE);
+        headerLabel.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
         gridPane.add(headerLabel, 0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
 
         // Add Name Label
         Label nameLabel = new Label("Full Name: ");
+        // nameLabel.setTextFill(Color.PURPLE);
+        nameLabel.setFont(font);
         gridPane.add(nameLabel, 0,1);
 
         //Add Name Text Field
@@ -88,6 +107,8 @@ public class RegistrationForm extends Application {
 
         // Add User Label
         Label userLabel = new Label("User Name: ");
+        //userLabel.setTextFill(Color.PURPLE);
+        userLabel.setFont(font);
         gridPane.add(userLabel, 0,2);
 
         //Add User Text Field
@@ -97,6 +118,8 @@ public class RegistrationForm extends Application {
 
         // Add Email Label
         Label emailLabel = new Label("Email Id: ");
+        //emailLabel.setTextFill(Color.PURPLE);
+        emailLabel.setFont(font);
         gridPane.add(emailLabel,0,3);
 
         //Add Email Text Field
@@ -106,6 +129,8 @@ public class RegistrationForm extends Application {
 
         // Add Mobile Label
         Label mobileLabel = new Label("Mobile No: ");
+        //mobileLabel.setTextFill(Color.PURPLE);
+        mobileLabel.setFont(font);
         gridPane.add(mobileLabel,0,4);
 
         //Add Mobile Text Field
@@ -114,6 +139,8 @@ public class RegistrationForm extends Application {
         gridPane.add(mobileField,1,4);
         //Add Password Label
         Label passwordLabel = new Label("Password : ");
+        //passwordLabel.setTextFill(Color.PURPLE);
+        passwordLabel.setFont(font);
         gridPane.add(passwordLabel, 0, 5);
 
         //Add Password Field
@@ -124,7 +151,8 @@ public class RegistrationForm extends Application {
         //Add Register Button
         Button submitButton = new Button("Register");
         submitButton.setPrefHeight(40);
-        submitButton.setDefaultButton(true);
+        submitButton.setStyle("-fx-background-color: #FFA500;");
+        //submitButton.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         submitButton.setPrefWidth(100);
         gridPane.add(submitButton, 0, 6, 2, 1);
         GridPane.setHalignment(submitButton, HPos.RIGHT);

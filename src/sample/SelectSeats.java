@@ -9,15 +9,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class SelectSeats extends Application {
     private static final FlightList list = new FlightList();
@@ -27,12 +27,21 @@ public class SelectSeats extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
-        gridPane.setBackground(new Background(new BackgroundFill(Color.TAN, CornerRadii.EMPTY, Insets.EMPTY)));
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("media/B2B-Background.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(inputStream);
+        gridPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         addUIGridPane(gridPane);
         //Add Back Button
         Button back_button = new Button("BACK");
         back_button.setPrefHeight(40);
-        back_button.setDefaultButton(true);
+        back_button.setStyle("-fx-background-color: #FFA500;");
+        back_button.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         back_button.setPrefWidth(100);
         back_button.setTranslateX(200);
         back_button.setTranslateY(25);
@@ -116,8 +125,8 @@ public class SelectSeats extends Application {
         }
 
         Button book = new Button("BOOK");
-        book.setPrefHeight(40);
-        book.setDefaultButton(true);
+        book.setStyle("-fx-background-color: #FFA500;");
+        book.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         book.setPrefWidth(100);
         book.setTranslateX(200);
         book.setTranslateY(25);
