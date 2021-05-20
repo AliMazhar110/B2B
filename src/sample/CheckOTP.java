@@ -8,62 +8,74 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class CheckOTP {
     private static int otp;
     public static void display(){
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Verifying E-Mail");
-        GridPane gridPane = createCheckOTPPane();
+        GridPane gridPane = null;
+        try {
+            gridPane = createCheckOTPPane();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         addUIControls(gridPane);
-        Scene scene = new Scene(gridPane,300,200);
+        Scene scene = new Scene(gridPane,500,500);
         primaryStage.setScene(scene);
         primaryStage.show();
-        gridPane.toFront();
+        primaryStage.toFront();
     }
-    private static GridPane createCheckOTPPane(){
+    private static GridPane createCheckOTPPane() throws FileNotFoundException {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setPadding(new Insets(40,40,40,40));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
+        FileInputStream inputStream = new FileInputStream("media/ENTER-OTP.png");
+        Image image = new Image(inputStream);
+        gridPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         return gridPane;
     }
     private static void addUIControls(GridPane gridPane){
         Label headerLabel = new Label("Enter OTP - ");
-        headerLabel.setFont(Font.font("Garamond", FontWeight.SEMI_BOLD, Double.parseDouble("20")));
-        gridPane.add(headerLabel,0,0,2,1);
+        headerLabel.setFont(Font.font("Garamond", FontWeight.SEMI_BOLD, 20));
+        gridPane.add(headerLabel,1,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         Label message = new Label("Check your E-Mail.");
-        message.setFont(Font.font("Garamond", FontWeight.NORMAL, Double.parseDouble("16")));
-        gridPane.add(message,0,1,2,1);
+        message.setFont(Font.font("Garamond", FontWeight.NORMAL,16));
+        gridPane.add(message,1,1,2,1);
         GridPane.setHalignment(message, HPos.CENTER);
 
         //Adding OTP label
         Label otpLabel = new Label("OTP - ");
-        gridPane.add(otpLabel,0,2);
+        gridPane.add(otpLabel,0,3);
 
         //Adding OTP Text Field
         TextField otpField = new TextField();
-        gridPane.add(otpField,1,2);
+        gridPane.add(otpField,1,3);
         otp = generateOTP();
         sendMail();
         //Add Submit Button
         Button submit = new Button("Submit");
         submit.setPrefHeight(40);
         submit.setDefaultButton(true);
-        submit.setPrefWidth(200);
-        gridPane.add(submit,2,2);
+        submit.setPrefWidth(100);
+        gridPane.add(submit,2,3);
         submit.setOnAction(e->{
             if(otpField.getText().isEmpty()){
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your name");
-                return;
             }
             else{
                 if (otp == Integer.parseInt(otpField.getText())) {
@@ -79,8 +91,8 @@ public class CheckOTP {
         Button resend = new Button("Resend");
         resend.setPrefHeight(40);
         resend.setDefaultButton(true);
-        resend.setPrefWidth(200);
-        gridPane.add(resend,0,4);
+        resend.setPrefWidth(100);
+        gridPane.add(resend,1,5);
         GridPane.setHalignment(resend, HPos.CENTER);
         GridPane.setMargin(resend, new Insets(20,0,20,0));
         resend.setOnAction(e->{
@@ -99,7 +111,7 @@ public class CheckOTP {
             email.send();
         }
         catch(Exception e){
-            e.printStackTrace();
+            System.out.println("Error: "+e);
         }
     }
     private static void showAlert(Alert.AlertType alertType,
