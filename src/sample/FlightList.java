@@ -58,6 +58,7 @@ public class FlightList extends Application{
         });
         stage.setScene(scene);
         stage.show();
+        gridPane.requestFocus();
     }
     private static GridPane createFlightPane(){
         // Instantiate new GridPane

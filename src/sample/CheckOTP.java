@@ -24,6 +24,7 @@ public class CheckOTP {
         Scene scene = new Scene(gridPane,300,200);
         primaryStage.setScene(scene);
         primaryStage.show();
+        gridPane.toFront();
     }
     private static GridPane createCheckOTPPane(){
         GridPane gridPane = new GridPane();

@@ -1,13 +1,13 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -38,16 +38,20 @@ public class Main extends Application {
     public static void welcomePage(Stage primaryStage) throws FileNotFoundException {
         window = primaryStage;
         primaryStage.setTitle("B2B Sign-In/Sign-Up//");
-        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        FileInputStream inputStream = new FileInputStream("media/B2B-FINAL.png");
         Image image = new Image(inputStream);
         GridPane grid = new GridPane();
         grid.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
-        grid.setAlignment(Pos.CENTER);
+        grid.setAlignment(Pos.CENTER_RIGHT);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(40, 40, 40, 40));
 
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(
+                200, 200, Double.MAX_VALUE);
+        columnOneConstraints.setHalignment(HPos.RIGHT);
+        grid.getColumnConstraints().addAll(columnOneConstraints);
         Scene scene = new Scene(grid, 800, 675);
         primaryStage.setScene(scene);
 
@@ -55,21 +59,21 @@ public class Main extends Application {
 
         Text scenetitle = new Text("Welcome");
         scenetitle.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
-        grid.add(scenetitle, 0, 0, 2, 1);
+        grid.add(scenetitle, 9, 0);
 
         Label userName = new Label("User Name:"); // UserName
-        grid.add(userName, 0, 1);
+        grid.add(userName, 9, 1);
         userName.setFont(font);
 
         TextField userNameField = new TextField(); // Password
-        grid.add(userNameField, 1, 1);
+        grid.add(userNameField, 10, 1);
 
         Label password = new Label("Password:");
-        grid.add(password, 0, 2);
+        grid.add(password, 9, 2);
         password.setFont(font);
 
         PasswordField passwordField = new PasswordField();
-        grid.add(passwordField, 1, 2);
+        grid.add(passwordField, 10, 2);
 
         Button signIn = new Button("Sign in"); // Sign in button
         Button signUp = new Button("Sign up"); // Sign up button
@@ -81,8 +85,8 @@ public class Main extends Application {
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         vbBtn.getChildren().addAll(label, signUp, close);
         hbBtn.getChildren().add(signIn);
-        grid.add(vbBtn, 0, 4);
-        grid.add(hbBtn, 1, 4);
+        grid.add(vbBtn, 9, 4);
+        grid.add(hbBtn, 10, 4);
 
         //signIn.setTextFill(Color.LIGHTBLUE);
         //signUp.setTextFill(Color.LIGHTBLUE);
@@ -93,7 +97,7 @@ public class Main extends Application {
         close.setStyle("-fx-background-color: #FFA500;");
 
         final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
+        grid.add(actiontarget, 10, 6);
 
         signIn.setOnAction(e -> { // Sign in window with error handling
             if (userNameField.getText().isEmpty()) {

@@ -10,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 import javafx.application.Application;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
@@ -51,10 +49,10 @@ public class SignedInUser extends Application {
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
 
-        Label sceneTitle = new Label("Welcome");
-        sceneTitle.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
-        sceneTitle.setTextFill(Color.CHOCOLATE);
-        grid.add(sceneTitle, 0, 0, 1, 1);
+//        Label sceneTitle = new Label("Welcome");
+//        sceneTitle.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
+//        sceneTitle.setTextFill(Color.CRIMSON);
+//        grid.add(sceneTitle, 0, 0, 1, 1);
 
         Button editProfile = new Button("Edit profile");
         Button bookFlight = new Button("Book flight");
@@ -114,7 +112,7 @@ public class SignedInUser extends Application {
         });
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(sceneTitle, viewBoardingPass,
+        layout.getChildren().addAll(viewBoardingPass,
                 viewFlightStatus, editProfile, bookFlight,
                 cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);

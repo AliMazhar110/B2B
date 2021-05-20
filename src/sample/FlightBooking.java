@@ -42,6 +42,7 @@ public class FlightBooking extends Application {
         Scene scene = new Scene(gridpane, 800, 675);
         stage.setScene(scene);
         stage.show();
+        gridpane.requestFocus();
     }
     private static GridPane createBookingPane(){
         //Instantiate a new Grid Pane

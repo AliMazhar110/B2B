@@ -8,11 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -46,7 +46,7 @@ public class RegistrationForm extends Application {
             m.start(primaryStage);
         });
         //Create a scene with the registration form gridPane as the root node.
-        Scene scene = new Scene(gridPane, 800, 675);
+        Scene scene = new Scene(gridPane, 800, 600);
         // Set the scene in primary stage
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -72,13 +72,13 @@ public class RegistrationForm extends Application {
 
         //columnTwoConstraints will be applied to all the nodes placed in column two.
         ColumnConstraints columnTwoConstraints = new ColumnConstraints(
-                250, 250, Double.MAX_VALUE);
+                300, 300, Double.MAX_VALUE);
         columnTwoConstraints.setHgrow(Priority.ALWAYS);
 
         gridPane.getColumnConstraints().addAll(columnOneConstraints,
                 columnTwoConstraints);
 
-        FileInputStream inputStream = new FileInputStream("media/B2B-Background.png");
+        FileInputStream inputStream = new FileInputStream("media/register-3.jpg");
         Image image = new Image(inputStream);
         gridPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
@@ -88,7 +88,7 @@ public class RegistrationForm extends Application {
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         //Add Header
         Label headerLabel = new Label("Fill The Details - ");
-        // headerLabel.setTextFill(Color.PURPLE);
+        //headerLabel.setTextFill(Color.BLACK);
         headerLabel.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
         gridPane.add(headerLabel, 0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -96,7 +96,7 @@ public class RegistrationForm extends Application {
 
         // Add Name Label
         Label nameLabel = new Label("Full Name: ");
-        // nameLabel.setTextFill(Color.PURPLE);
+        //nameLabel.setTextFill(Color.RED);
         nameLabel.setFont(font);
         gridPane.add(nameLabel, 0,1);
 
@@ -104,21 +104,23 @@ public class RegistrationForm extends Application {
         TextField nameField = new TextField();
         nameField.setPrefHeight(30);
         gridPane.add(nameField, 1,1);
+        nameField.setStyle("-fx-text-box-border: blue; -fx-focus-color: blue;");
 
         // Add User Label
         Label userLabel = new Label("User Name: ");
-        //userLabel.setTextFill(Color.PURPLE);
+        //userLabel.setTextFill(Color.RED);
         userLabel.setFont(font);
         gridPane.add(userLabel, 0,2);
 
         //Add User Text Field
         TextField userField = new TextField();
-        nameField.setPrefHeight(30);
+        userField.setPrefHeight(30);
         gridPane.add(userField, 1,2);
+        userField.setStyle("-fx-text-box-border: blue; -fx-focus-color: blue;");
 
         // Add Email Label
         Label emailLabel = new Label("Email Id: ");
-        //emailLabel.setTextFill(Color.PURPLE);
+        //emailLabel.setTextFill(Color.RED);
         emailLabel.setFont(font);
         gridPane.add(emailLabel,0,3);
 
@@ -126,10 +128,11 @@ public class RegistrationForm extends Application {
         TextField emailField = new TextField();
         emailField.setPrefHeight(30);
         gridPane.add(emailField, 1,3);
+        emailField.setStyle("-fx-text-box-border: blue; -fx-focus-color: blue;");
 
         // Add Mobile Label
         Label mobileLabel = new Label("Mobile No: ");
-        //mobileLabel.setTextFill(Color.PURPLE);
+        //mobileLabel.setTextFill(Color.RED);
         mobileLabel.setFont(font);
         gridPane.add(mobileLabel,0,4);
 
@@ -137,9 +140,10 @@ public class RegistrationForm extends Application {
         TextField mobileField = new TextField();
         mobileField.setPrefHeight(30);
         gridPane.add(mobileField,1,4);
+        mobileField.setStyle("-fx-text-box-border: blue; -fx-focus-color: blue;");
         //Add Password Label
         Label passwordLabel = new Label("Password : ");
-        //passwordLabel.setTextFill(Color.PURPLE);
+        //passwordLabel.setTextFill(Color.RED);
         passwordLabel.setFont(font);
         gridPane.add(passwordLabel, 0, 5);
 
@@ -147,7 +151,7 @@ public class RegistrationForm extends Application {
         PasswordField passwordField = new PasswordField();
         passwordField.setPrefHeight(30);
         gridPane.add(passwordField, 1 , 5);
-
+        passwordField.setStyle("-fx-text-box-border: blue; -fx-focus-color: blue;");
         //Add Register Button
         Button submitButton = new Button("Register");
         submitButton.setPrefHeight(40);
@@ -175,8 +179,7 @@ public class RegistrationForm extends Application {
             }
             else{
                 email = emailField.getText();
-            }
-            if(mobileField.getText().isEmpty()){
+            }            if(mobileField.getText().isEmpty()){
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your password");
                 return;
