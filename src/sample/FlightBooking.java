@@ -86,14 +86,25 @@ public class FlightBooking extends Application {
                 "Kolkata","Delhi"
         );
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
+        Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         DatePicker date = new DatePicker();
-        gridpane.add(new Label("From: "),0,1);
+        Label source = new Label("From: ");
+        Label destination = new Label("To: ");
+        Label dateOfJourney = new Label("Date: ");
+        Label noOfPassengers = new Label("No of Passengers: ");
+
+        source.setFont(font);
+        destination.setFont(font);
+        dateOfJourney.setFont(font);
+        noOfPassengers.setFont(font);
+        
+        gridpane.add(source,0,1);
         gridpane.add(from, 1, 1);
-        gridpane.add(new Label("TO: "),4,1);
+        gridpane.add(destination,4,1);
         gridpane.add(to, 5, 1);
-        gridpane.add(new Label("Date: "),0, 2);
+        gridpane.add(dateOfJourney,0, 2);
         gridpane.add(date,1,2);
-        gridpane.add(new Label("No. Of Passengers = "),4,2);
+        gridpane.add(noOfPassengers,4,2);
         TextField passengers = new TextField();
         gridpane.add(passengers,5,2);
         Button button = new Button("Book");
