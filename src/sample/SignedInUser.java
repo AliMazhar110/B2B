@@ -49,11 +49,6 @@ public class SignedInUser extends Application {
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
 
-//        Label sceneTitle = new Label("Welcome");
-//        sceneTitle.setFont(Font.font("Century", FontWeight.EXTRA_BOLD, 28));
-//        sceneTitle.setTextFill(Color.CRIMSON);
-//        grid.add(sceneTitle, 0, 0, 1, 1);
-
         Button editProfile = new Button("Edit profile");
         Button bookFlight = new Button("Book flight");
         Button cancelFlight = new Button("Cancel a flight");

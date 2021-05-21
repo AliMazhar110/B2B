@@ -45,45 +45,33 @@ public class EditProfile {
         TextField fullNameField = new TextField();
         grid.add(fullNameField, 1, 1);
 
-        Label userName = new Label("User Name:"); // User Name
-        userName.setFont(font);
-        grid.add(userName, 0, 2);
-        TextField userNameField = new TextField();
-        grid.add(userNameField, 1, 2);
-
-        Label emailID = new Label("Email ID: "); // Email ID
-        emailID.setFont(font);
-        grid.add(emailID, 0, 3);
-        TextField emailIDField = new TextField();
-        grid.add(emailIDField, 1, 3);
-
         Label mobileNo = new Label("Mobile No: "); // Mobile No
         mobileNo.setFont(font);
-        grid.add(mobileNo, 0, 4);
+        grid.add(mobileNo, 0, 2);
         TextField mobileNoField = new TextField();
-        grid.add(mobileNoField, 1, 4);
+        grid.add(mobileNoField, 1, 2);
 
         Label oldPassword = new Label("Old Password:"); // Old Password
         oldPassword.setFont(font);
-        grid.add(oldPassword, 0, 5);
+        grid.add(oldPassword, 0, 3);
         PasswordField oldPasswordField = new PasswordField();
-        grid.add(oldPasswordField, 1, 5);
+        grid.add(oldPasswordField, 1, 3);
 
         Label newPassword = new Label("New Password:"); // New Password
         newPassword.setFont(font);
-        grid.add(newPassword, 0, 6);
+        grid.add(newPassword, 0, 4);
         PasswordField newPasswordField = new PasswordField();
-        grid.add(newPasswordField, 1, 6);
+        grid.add(newPasswordField, 1, 4);
 
         Label confirmPassword = new Label("Confirm New Password:"); // Confirm Password
         confirmPassword.setFont(font);
-        grid.add(confirmPassword, 0, 7);
+        grid.add(confirmPassword, 0, 5);
         PasswordField confirmPasswordField = new PasswordField();
-        grid.add(confirmPasswordField, 1, 7);
+        grid.add(confirmPasswordField, 1, 5);
 
         Button confirm = new Button("Confirm and Submit");
         Button back = new Button("Back");
-        VBox align = new VBox(10);
+        VBox align = new VBox(20);
         align.setAlignment(Pos.CENTER);
 
         confirm.setStyle("-fx-background-color: #FFA500;");
@@ -92,23 +80,15 @@ public class EditProfile {
         back.setFont(btnFont);
 
         align.getChildren().addAll(confirm, back);
-        grid.add(align, 1, 8);
+        grid.add(align, 1, 7);
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
         confirm.setOnAction(e -> {
-            if (userNameField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
-                        "Error!", "Please enter your username");
-                return;
-            } if (fullNameField.getText().isEmpty()) {
+            if (fullNameField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
                         "Error!", "Please enter your full name");
-                return;
-            } if (emailIDField.getText().isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
-                        "Error!", "Please enter your email ID");
                 return;
             } if (mobileNoField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
