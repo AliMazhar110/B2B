@@ -1,14 +1,14 @@
 package sample;
 
 public class Flights {
-	private static String airline;
-	private static String flightNo;
-	private static String source;
-	private static String destination;
-	private static String departureTime;
-	private static String arrivalTime;
-	private static String duration;
-	private static String price;
+	private String airline;
+	private String flightNo;
+	private String source;
+	private String destination;
+	private String departureTime;
+	private String arrivalTime;
+	private String duration;
+	private String price;
 
 	public Flights(String airline, String flightNo, String source,
 		String destination, String departureTime, String arrivalTime,

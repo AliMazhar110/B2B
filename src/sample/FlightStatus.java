@@ -54,7 +54,13 @@ public class FlightStatus {
         vertical.getChildren().addAll(name, airline, flight, departure);
 
         Button exitWindow = new Button("Back");
-        exitWindow.setOnAction(e -> s.start(window));
+        exitWindow.setOnAction(e -> {
+            try {
+                s.display("Welcome", window, "id");
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         exitWindow.setStyle("-fx-background-color: #FFA500;");
         exitWindow.setFont(Font.font("Century", FontWeight.NORMAL, 16));
 

@@ -13,7 +13,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -109,7 +108,19 @@ public class Main extends Application {
                         "Error!", "Please enter your password");
                 return;
             } else {
-                s.start(window);
+                if (Database.loginUser(userNameField.getText(),
+                            passwordField.getText())) {
+                    try {
+                        s.display("Welcome user", window, userNameField.getText());
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
+                }
+                else {
+                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                        "Error!", "Username or password are incorrect");
+                    return;
+                }
             }
         });
 

@@ -18,12 +18,14 @@ import javafx.stage.Window;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class SelectSeats extends Application {
+public class SelectSeats {//extends Application {
     private static final FlightList list = new FlightList();
     private int pass;
-    private int[] seats = new int[50];
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    private static int[] seats = new int[50];
+    //@Override
+    //public void start(Stage primaryStage) throws Exception {
+    public String display(Stage primaryStage, String id, String source,
+                          String destination) throws Exception {
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
         FileInputStream inputStream = null;
@@ -35,7 +37,7 @@ public class SelectSeats extends Application {
         Image image = new Image(inputStream);
         gridPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
-        addUIGridPane(gridPane);
+        String result = addUIGridPane(gridPane);
         //Add Back Button
         Button back_button = new Button("BACK");
         back_button.setPrefHeight(40);
@@ -48,15 +50,16 @@ public class SelectSeats extends Application {
         GridPane.setHalignment(back_button, HPos.CENTER);
         GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
-            list.start(primaryStage);
+            list.display(primaryStage, id, source, destination);
         });
         Scene scene = new Scene(gridPane, 800, 675);
         primaryStage.setScene(scene);
         primaryStage.show();
         gridPane.requestFocus();
+        return result;
     }
 
-    private void addUIGridPane(GridPane gridPane) throws Exception {
+    private String addUIGridPane(GridPane gridPane) throws Exception {
         gridPane.setAlignment(Pos.TOP_LEFT);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -132,15 +135,17 @@ public class SelectSeats extends Application {
         gridPane.add(book, 9, 15,2,1);
         GridPane.setHalignment(book, HPos.LEFT);
         GridPane.setMargin(book, new Insets(20, 0, 20, 0));
+        String result = getMessage();
         book.setOnAction(e -> {
             showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                    "Seats Booked","last seat booked ="+getMessage());
+                    "Seats Booked","last seat booked ="+result);
         });
+        return result;
     }
     private String getMessage(){
         String str = "";
         for(int i=0;i<pass;i++){
-            str += seats[i] + ", ";
+            str += seats[i] +", ";
         }
         return str;
     }
@@ -154,7 +159,7 @@ public class SelectSeats extends Application {
         alert.show();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 }

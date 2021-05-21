@@ -8,19 +8,19 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class SignedInUser extends Application {
+public class SignedInUser{// extends Application {
     private static FlightBooking book = new FlightBooking();
     private static Ticket t = new Ticket();
     private static CancelTicket c = new CancelTicket();
 
-    @Override
+    /*@Override
     public void start(Stage window) {
         String title = "Welcome user";
         try {
@@ -28,9 +28,9 @@ public class SignedInUser extends Application {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    private static void display(String title, Stage window) throws FileNotFoundException {
+    public static void display(String title, Stage window, String id) throws FileNotFoundException {
 
         window.setTitle(title);
 
@@ -54,7 +54,7 @@ public class SignedInUser extends Application {
         Button cancelFlight = new Button("Cancel a flight");
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
-        Button viewBoardingPass = new Button("View Boarding pass");
+        Button viewTicket = new Button("View Ticket");
 
         editProfile.setStyle("-fx-background-color: #FFA500;");
         editProfile.setFont(btnFont);
@@ -64,24 +64,24 @@ public class SignedInUser extends Application {
         cancelFlight.setFont(btnFont);
         viewFlightStatus.setStyle("-fx-background-color: #FFA500;");
         viewFlightStatus.setFont(btnFont);
-        viewBoardingPass.setStyle("-fx-background-color: #FFA500;");
-        viewBoardingPass.setFont(btnFont);
+        viewTicket.setStyle("-fx-background-color: #FFA500;");
+        viewTicket.setFont(btnFont);
         logout.setStyle("-fx-background-color: #FFA500;");
         logout.setFont(btnFont);
 
         editProfile.setOnAction(e -> { // Edit profile
             try {
-                EditProfile.display(window);
+                EditProfile.display(window, id);
             } catch (FileNotFoundException fileNotFoundException) {
                 fileNotFoundException.printStackTrace();
             }
         });
         bookFlight.setOnAction(e -> { // Book flight
-            book.start(window);
+            book.display(window, id);
         });
         cancelFlight.setOnAction(e -> { // cancel flight
             try {
-                c.start(window);
+                c.display(window, id);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -98,16 +98,16 @@ public class SignedInUser extends Application {
                 fileNotFoundException.printStackTrace();
             }
         });
-        viewBoardingPass.setOnAction(e -> { // view Boarding Pass
+        viewTicket.setOnAction(e -> { // view Boarding Pass
             try {
-                t.start(window);
+                t.showTicket(window, id);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
         });
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(viewBoardingPass,
+        layout.getChildren().addAll(viewTicket,
                 viewFlightStatus, editProfile, bookFlight,
                 cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);

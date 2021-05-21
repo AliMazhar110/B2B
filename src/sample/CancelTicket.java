@@ -14,14 +14,17 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class CancelTicket extends Application {
+public class CancelTicket {//extends Application {
 
     private static SignedInUser s = new SignedInUser();
 
-    @Override
+    /*@Override
     public void start(Stage primaryStage) {
         // SQL code to get name, airline, flight number, departure time,
         // gate number, number of passengers and seat number from the database
@@ -29,7 +32,7 @@ public class CancelTicket extends Application {
 
         display(primaryStage, "Name of User", "Airline", "Flight Number", "Departure",
                 "Number Of Passengers", "Seat Number");
-    }
+    }*/
 
     private static GridPane getGrid() throws FileNotFoundException {
         GridPane grid = new GridPane();
@@ -45,10 +48,7 @@ public class CancelTicket extends Application {
         return grid;
     }
 
-    private static void display(Stage window, String name, String airline,
-                                String flightNumber, String departure,
-                                String numberOfPassengers, String seatNumber) {
-
+    public void display(Stage window, String id) {
         GridPane grid = null;
         try {
             grid = getGrid();
@@ -59,32 +59,29 @@ public class CancelTicket extends Application {
         window.setTitle("Cancel Ticket");
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
-
+        ArrayList<BookedFlights> b = new ArrayList<>();
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
 
-        Label nameOfUser = new Label(name);
-        Label flightProvider = new Label(airline);
-        Label flight = new Label(flightNumber);
-        Label seatNo = new Label(seatNumber);
-        Label time = new Label(departure);
-        Label noOfPassengers = new Label(numberOfPassengers);
+        Label airline = new Label(b.get(0).getAirline());
+        Label flight = new Label(b.get(0).getFlightNo());
+        Label seatNo = new Label(b.get(0).getSeats());
+        Label departureTime = new Label(b.get(0).getDepartureTime());
+        Label arrivalTime = new Label(b.get(0).getArrivalTime());
 
         Font font = Font.font("Century", FontWeight.EXTRA_BOLD, 16);
 
-        nameOfUser.setFont(font);
-        flightProvider.setFont(font);
+        airline.setFont(font);
+        departureTime.setFont(font);
         flight.setFont(font);
         seatNo.setFont(font);
-        time.setFont(font);
-        noOfPassengers.setFont(font);
-
+        arrivalTime.setFont(font);
         VBox v = new VBox(10);
         VBox secondColumn = new VBox(10);
         v.setAlignment(Pos.CENTER);
         secondColumn.setAlignment(Pos.CENTER_LEFT);
-        v.getChildren().addAll(nameOfUser, flightProvider,
-                flight, time);
-        secondColumn.getChildren().addAll(noOfPassengers, seatNo);
+        v.getChildren().addAll(airline,
+                flight, departureTime);
+        secondColumn.getChildren().addAll(flight, seatNo);
 
         Button back = new Button("Back");
         Button cancelTicket = new Button("Cancel Ticket");
@@ -93,8 +90,18 @@ public class CancelTicket extends Application {
         cancelTicket.setStyle("-fx-background-color: #FFA500;");
         cancelTicket.setFont(btnFont);
         String message = "Cancel Ticket";
-        cancelTicket.setOnAction(e -> cancelTicketConfirmation(message));
-        back.setOnAction(e -> s.start(window));
+        cancelTicket.setOnAction(e -> {
+           /* if (Popup.display()) {
+                if (Database.editProfile())
+            }*/
+        });
+        back.setOnAction(e -> {
+            try {
+                s.display("Welcome", window, id);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
 
         grid.add(v, 0, 2);
         grid.add(secondColumn, 2, 2);

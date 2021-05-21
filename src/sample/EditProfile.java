@@ -15,7 +15,7 @@ public class EditProfile {
 
     private static SignedInUser s = new SignedInUser();
 
-    public static void display(Stage window) throws FileNotFoundException {
+    public static void display(Stage window, String id) throws FileNotFoundException {
 
         window.setTitle("Edit Profile");
 
@@ -106,16 +106,30 @@ public class EditProfile {
                 showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
                         "Error!", "Please confirm your new password");
                 return;
+            } if (!confirmPasswordField.getText().equals(newPasswordField.getText())) {
+                showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                        "Error!", "Passwords do not match");
+                return;
             } else {
-                showAlert(Alert.AlertType.CONFIRMATION,
-                        grid.getScene().getWindow(), "Confirmation!",
-                        "Do you confirm the changes");
-                s.start(window);
+                if (Popup.display()) {
+                    try {
+                        if (Database.editProfile(id, fullNameField.getText(),
+                                newPasswordField.getText(), mobileNoField.getText())) {
+                            s.display("Welcome", window, id);
+                        }
+                    } catch (FileNotFoundException fileNotFoundException) {
+                        fileNotFoundException.printStackTrace();
+                    }
+                }
             }
         });
 
         back.setOnAction(e -> {
-            s.start(window);
+            try {
+                    s.display("Welcome", window, id);
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                }
         });
     }
 

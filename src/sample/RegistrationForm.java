@@ -189,6 +189,8 @@ public class RegistrationForm extends Application {
                         "Error!", "Please enter your password");
                 return;
             }
+            Database.insertUser(nameField.getText(), userField.getText(),
+                passwordField.getText(), emailField.getText(), mobileField.getText());
             CheckOTP.display();
         });
     }

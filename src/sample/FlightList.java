@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,18 +16,21 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-public class FlightList extends Application{
+public class FlightList {//extends Application{
     private static final FlightBooking flights = new FlightBooking();
     private static final SelectSeats seats = new SelectSeats();
+    private static String[] result = new String[3];
 //    public static final ObservableList names = FXCollections.observableArrayList();
 //    private static final ToggleGroup group =  new ToggleGroup();
 
-    @Override
-    public void start(Stage stage){
+    //@Override
+    //public void start(Stage stage){
+    public String[] display(Stage stage, String id, String source, String destination) {
         stage.setTitle("Select Flight");
         GridPane gridPane = createFlightPane();
-        addUIControls(gridPane);
+        addUIControls(gridPane, source, destination);
         Scene scene = new Scene(gridPane, 800, 675);
         Button back_button = new Button("Back");
         back_button.setPrefHeight(40);
@@ -47,11 +49,11 @@ public class FlightList extends Application{
         GridPane.setHalignment(book, HPos.LEFT);
         GridPane.setMargin(book, new Insets(20,0,20,0));
         back_button.setOnAction(e ->{
-            flights.start(stage);
+            flights.display(stage, id);
         });
         book.setOnAction(e->{
             try {
-                seats.start(stage);
+                result[0] = seats.display(stage, id, source, destination);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -59,6 +61,7 @@ public class FlightList extends Application{
         stage.setScene(scene);
         stage.show();
         gridPane.requestFocus();
+        return result;
     }
     private static GridPane createFlightPane(){
         // Instantiate new GridPane
@@ -83,17 +86,19 @@ public class FlightList extends Application{
 
         return gridPane;
     }
-    private static void addUIControls(GridPane gridPane){
-        Label headerLabel = new Label("\t\tSelect Flight");
+    private static void addUIControls(GridPane gridPane, String source, String destination){
+        Label headerLabel = new Label("\tFlights from "+ source +" to "+ destination);
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
         gridPane.add(headerLabel,0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
+        ArrayList<Flights> f = Database.showFlights(source, destination);
         Rectangle rectangle1 = new Rectangle(700,100, Color.TAN);
         rectangle1.setArcHeight(30);
         rectangle1.setArcWidth(30);
         RadioButton btn1 = new RadioButton();
-        Text to1 = new Text("\tTo - Delhi\t\t\t\tDuration - 3hrs\t\t\t  From - Mumbai");
+        Text to1 = new Text("\t"+ f.get(0).getAirline() +"\t"+ f.get(0).getDepartureTime() +
+                "\t"+ f.get(0).getDuration() +"\t"+ f.get(0).getArrivalTime() +"\tPrice-"+ f.get(0).getPrice());
         to1.setFont(new Font("Verdana Bold",16));
         GridPane gridPane1 = new GridPane();
         gridPane1.setHgap(10);
@@ -108,7 +113,8 @@ public class FlightList extends Application{
         RadioButton btn2 = new RadioButton();
         rectangle2.setArcHeight(30);
         rectangle2.setArcWidth(30);
-        Text to2 = new Text("\tTo - Delhi\t\t\t\tDuration - 2hrs\t\t\t  From - Chennai");
+        Text to2 = new Text("\t"+ f.get(1).getAirline() +"\t"+ f.get(1).getDepartureTime() +
+                "\t"+ f.get(1).getDuration() +"\t"+ f.get(1).getArrivalTime() +"\tPrice-"+ f.get(1).getPrice());
         to2.setFont(new Font("Verdana Bold",16));
         gridPane1.add(rectangle2,0,2,2,1);
         gridPane1.add(btn2,0,2,2,1);
@@ -119,7 +125,8 @@ public class FlightList extends Application{
         rectangle3.setArcHeight(30);
         rectangle3.setArcWidth(30);
         RadioButton btn3 = new RadioButton();
-        Text to3 = new Text("\tTo - Delhi\t\t\t\tDuration - 3hrs\t\t\t  From - Kolkata");
+        Text to3 = new Text("\t"+ f.get(2).getAirline() +"\t"+ f.get(2).getDepartureTime() +
+                "\t"+ f.get(2).getDuration() +"\t"+ f.get(2).getArrivalTime() +"\tPrice-"+ f.get(2).getPrice());
         to3.setFont(new Font("Verdana Bold",16));
         gridPane1.add(rectangle3,0,3,2,1);
         gridPane1.add(btn3,0,3,2,1);
@@ -127,6 +134,18 @@ public class FlightList extends Application{
         to3.toFront();
         btn3.toFront();
         gridPane.add(gridPane1,0,1,2,1);
+
+        if (btn1.isSelected()) {
+            result[1] = f.get(0).getAirline();
+            result[2] = f.get(0).getFlightNo();
+        } else if (btn2.isSelected()) {
+            result[1] = f.get(1).getAirline();
+            result[2] = f.get(1).getFlightNo();
+        } else if (btn3.isSelected()) {
+            result[1] = f.get(2).getAirline();
+            result[2] = f.get(2).getFlightNo();
+        }
+
 //        ListView listView = new ListView();
 //        listView.setPrefSize(500, 500);
 //        listView.setEditable(true);

@@ -8,19 +8,20 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-import javafx.application.Application;
+//import javafx.application.Application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-public class Ticket extends Application {
+public class Ticket {//extends Application {
 
-    @Override
+    /*@Override
     public void start(Stage stage) throws Exception {
         showTicket(stage);
-    }
+    }*/
 
-    private static void showTicket(Stage window) {
+    public static void showTicket(Stage window, String id) {
         SignedInUser s = new SignedInUser();
 
         GridPane grid = new GridPane();
@@ -44,7 +45,9 @@ public class Ticket extends Application {
 
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
 
-        Label name = new Label("Name: ");
+        VBox details = showDetails(id);
+
+        /*Label name = new Label("Name: ");
         name.setFont(font);
         Label airline = new Label("Airline: ");
         airline.setFont(font);
@@ -62,16 +65,50 @@ public class Ticket extends Application {
         vertical.setAlignment(Pos.CENTER);
         vertical.getChildren().addAll(airline, name, seatNo, gateNo);
         verticalSecondColumn.getChildren().addAll(flight, time);
+        */
+        details.setAlignment(Pos.CENTER);
 
         Button back = new Button("Back");
-        back.setOnAction(e -> s.start(window));
+        back.setOnAction(e -> {
+            try {
+                s.display("Welcome", window, id);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
         back.setStyle("-fx-background-color: #FFA500;");
         back.setFont(Font.font("Century", FontWeight.NORMAL, 16));
 
-        grid.add(vertical, 0, 2);
-        grid.add(verticalSecondColumn, 2, 2);
+        grid.add(details, 0, 2);
+        //grid.add(verticalSecondColumn, 2, 2);
         grid.add(back, 1, 4);
 
         window.show();
+    }
+
+    private static VBox showDetails(String id) {
+        Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
+        ArrayList<BookedFlights> b = Database.showBookedFlight(id);
+        VBox v = new VBox(10);
+        for (int i = 0; i < b.size(); ++i) {
+            Label airline = new Label(b.get(i).getAirline());
+            airline.setFont(font);
+            Label flight = new Label(b.get(i).getFlightNo());
+            flight.setFont(font);
+            Label source = new Label(b.get(i).getSource());
+            source.setFont(font);
+            Label destination = new Label(b.get(i).getDestination());
+            destination.setFont(font);
+            Label departureTime = new Label(b.get(i).getDepartureTime());
+            departureTime.setFont(font);
+            Label arrivalTime = new Label(b.get(i).getArrivalTime());
+            arrivalTime.setFont(font);
+            Label seats = new Label(b.get(i).getSeats());
+            arrivalTime.setFont(font);
+            v.getChildren().addAll(airline, flight, source, destination,
+                            departureTime, arrivalTime, seats);
+            return v;
+        }
+        return v;
     }
 }

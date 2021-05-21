@@ -1,6 +1,7 @@
 package sample;
 
-import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,17 +16,22 @@ import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
-public class FlightBooking extends Application {
+public class FlightBooking {//extends Application {
     private static SignedInUser menu = new SignedInUser();
     private static FlightList list = new FlightList();
     private static Stage window;
-    @Override
-    public void start(Stage stage) {
+    private static String[] seats = new String[3];
+    private static String pnr;
+    //@Override
+    //public void start(Stage stage) {
+    public void display(Stage stage, String id) {
         window = stage;
         stage.setTitle("Book Flight");
         GridPane gridpane = createBookingPane();
-        addUIControls(gridpane);
+        addUIControls(gridpane, id);
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
         // Add Back Button
         Button back_button = new Button("Back");
@@ -37,7 +43,11 @@ public class FlightBooking extends Application {
         GridPane.setHalignment(back_button, HPos.LEFT);
         GridPane.setMargin(back_button, new Insets(20,0,20,0));
         back_button.setOnAction(e ->{
-            menu.start(stage);
+            try {
+                menu.display("Welcome", stage, "id");
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
         });
         Scene scene = new Scene(gridpane, 800, 675);
         stage.setScene(scene);
@@ -67,7 +77,7 @@ public class FlightBooking extends Application {
 
         return gridPane;
     }
-    private static void addUIControls(GridPane gridpane){
+    private static void addUIControls(GridPane gridpane, String id){
         Label headerLabel = new Label("Book Flight");
         headerLabel.setFont(Font.font("Century", FontWeight.BOLD, 28));
         gridpane.add(headerLabel, 2,0,2,1);
@@ -88,6 +98,7 @@ public class FlightBooking extends Application {
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         DatePicker date = new DatePicker();
+
         Label source = new Label("From: ");
         Label destination = new Label("To: ");
         Label dateOfJourney = new Label("Date: ");
@@ -115,27 +126,32 @@ public class FlightBooking extends Application {
         gridpane.add(button ,1 ,3,2,1);
         GridPane.setHalignment(button, HPos.RIGHT);
         GridPane.setMargin(button, new Insets(20,0,20,0));
+
+        String[] f = new String[1];
+        String[] t = new String[1];
+        String[] d = new String[1];
+
         button.setOnAction(actionEvent -> {
             try{
-                String f = from.getValue().toString();
+                f[0] = from.getValue().toString();
             }
-            catch(Exception e){
+            catch(Exception a){
                 showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
                         "Error!", "Please enter Your Source.");
                 return;
             }
             try{
-                String t = to.getValue().toString();
+                t[0] = to.getValue().toString();
             }
-            catch(Exception e){
+            catch(Exception a){
                 showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
                         "Error!" ,"Please enter your Destination");
                 return;
             }
             try{
-                String d = date.getValue().toString();
+                d[0] = date.getValue().toString();
             }
-            catch (Exception e){
+            catch (Exception a){
                 showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
                         "Error!" ,"Please enter Date");
                 return;
@@ -146,10 +162,13 @@ public class FlightBooking extends Application {
                 return;
             }
             try {
-                list.start(window);
-            } catch (Exception e) {
-                e.printStackTrace();
+                seats = list.display(window, id, f[0], t[0]);
+            } catch (Exception a) {
+                //a.printStackTrace();
+                System.out.println(a.getMessage());
             }
+            pnr = seats[2].substring(0,3) +""+ generateRandom();
+            Database.bookFlight(f[0], t[0], d[0], seats[1], seats[2], pnr, id, seats[0]);
         });
     }
 
@@ -161,5 +180,9 @@ public class FlightBooking extends Application {
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
+    }
+
+    private static int generateRandom(){
+        return (int)(Math.random()*900)+100;
     }
 }
