@@ -30,7 +30,7 @@ public class CheckOTP {
             e.printStackTrace();
         }
         addUIControls(gridPane);
-        Scene scene = new Scene(gridPane,500,500);
+        Scene scene = new Scene(gridPane,500,400);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.toFront();
@@ -41,7 +41,7 @@ public class CheckOTP {
         gridPane.setPadding(new Insets(40,40,40,40));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        FileInputStream inputStream = new FileInputStream("media/ENTER-OTP.png");
+        FileInputStream inputStream = new FileInputStream("media/enter-otp.png");
         Image image = new Image(inputStream);
         gridPane.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
@@ -49,16 +49,17 @@ public class CheckOTP {
     }
     private static void addUIControls(GridPane gridPane){
         Label headerLabel = new Label("Enter OTP - ");
-        headerLabel.setFont(Font.font("Garamond", FontWeight.SEMI_BOLD, 20));
+        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         gridPane.add(headerLabel,1,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         Label message = new Label("Check your E-Mail.");
-        message.setFont(Font.font("Garamond", FontWeight.NORMAL,16));
+        message.setFont(Font.font("Arial", FontWeight.BOLD,16));
         gridPane.add(message,1,1,2,1);
         GridPane.setHalignment(message, HPos.CENTER);
 
         //Adding OTP label
         Label otpLabel = new Label("OTP - ");
+        otpLabel.setFont(Font.font("Arial", FontWeight.BOLD,14));
         gridPane.add(otpLabel,0,3);
 
         //Adding OTP Text Field
@@ -69,7 +70,7 @@ public class CheckOTP {
         //Add Submit Button
         Button submit = new Button("Submit");
         submit.setPrefHeight(40);
-        submit.setDefaultButton(true);
+        submit.setStyle("-fx-background-color: #FFA500;");
         submit.setPrefWidth(100);
         gridPane.add(submit,2,3);
         submit.setOnAction(e->{
@@ -90,7 +91,7 @@ public class CheckOTP {
         //Add Resend Button
         Button resend = new Button("Resend");
         resend.setPrefHeight(40);
-        resend.setDefaultButton(true);
+        resend.setStyle("-fx-background-color: #FFA500;");
         resend.setPrefWidth(100);
         gridPane.add(resend,1,5);
         GridPane.setHalignment(resend, HPos.CENTER);
