@@ -52,13 +52,15 @@ public class Database {
     }
 
     public static boolean bookFlight(String source, String destination, String date, String airline,
-                              String flightNo, String PNR, String id, String seats) {
+                              String flightNo, String PNR, String id, String seats, String departure,
+                                     String arrival) {
         table = "flights_booked";
         try {
             Class.forName(className);
             Connection con = DriverManager.getConnection(url, username, password);
             query = "insert into " + table + " values('"+ id + "', '"+ airline +"', '"+ flightNo +"', '"+
-                    PNR + "', '" + source + "', '" + destination + "', '"+ date +"', "+ seats +");";
+                    PNR + "', '" + source + "', '" + destination + "', '"+ departure +"', '"+ arrival +"', '"+
+                    date +"', '"+ seats +"');";
             PreparedStatement prep = con.prepareStatement(query);
             prep.execute();
             return true;

@@ -17,15 +17,18 @@ import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 public class SelectSeats {//extends Application {
     private static final FlightList list = new FlightList();
+    private static final SignedInUser loggedIn = new SignedInUser();
     private int pass;
     private static int[] seats = new int[50];
     //@Override
     //public void start(Stage primaryStage) throws Exception {
-    public String display(Stage primaryStage, String id, String source,
-                          String destination) throws Exception {
+    public void display(Stage primaryStage, String id, String source,
+                          String destination,String date, String airline,
+                        String flightNo, String dep, String arr) throws Exception {
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
         FileInputStream inputStream = null;
@@ -37,7 +40,8 @@ public class SelectSeats {//extends Application {
         Image image = new Image(inputStream);
         gridPane.setBackground(new Background(new BackgroundImage(image,BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
-        String result = addUIGridPane(gridPane);
+        addUIGridPane(primaryStage, gridPane, id, source, destination, date, airline, flightNo,
+                dep, arr);
         //Add Back Button
         Button back_button = new Button("BACK");
         back_button.setPrefHeight(40);
@@ -50,16 +54,17 @@ public class SelectSeats {//extends Application {
         GridPane.setHalignment(back_button, HPos.CENTER);
         GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
-            list.display(primaryStage, id, source, destination);
+            list.display(primaryStage, id, source, destination, date);
         });
         Scene scene = new Scene(gridPane, 800, 675);
         primaryStage.setScene(scene);
         primaryStage.show();
         gridPane.requestFocus();
-        return result;
     }
 
-    private String addUIGridPane(GridPane gridPane) throws Exception {
+    private void addUIGridPane(Stage stage, GridPane gridPane, String id, String source,
+                               String destination, String date, String airline,
+                               String flightNo, String dep, String arr) throws Exception {
         gridPane.setAlignment(Pos.TOP_LEFT);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -135,12 +140,19 @@ public class SelectSeats {//extends Application {
         gridPane.add(book, 9, 15,2,1);
         GridPane.setHalignment(book, HPos.LEFT);
         GridPane.setMargin(book, new Insets(20, 0, 20, 0));
-        String result = getMessage();
         book.setOnAction(e -> {
             showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(),
-                    "Seats Booked","last seat booked ="+result);
+                    "Seats Booked","last seat booked ="+ getMessage());
+            String pnr = generateRandom() +"";
+            if (Database.bookFlight(source, destination, date, airline, flightNo,
+                    pnr, id, getMessage(), dep, arr)) {
+                try {
+                    loggedIn.display("Welcome", stage, id);
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                }
+            }
         });
-        return result;
     }
     private String getMessage(){
         String str = "";
@@ -157,6 +169,10 @@ public class SelectSeats {//extends Application {
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
+    }
+
+    private static int generateRandom(){
+        return (int)(Math.random()*900000)+100000;
     }
 
     /*public static void main(String[] args) {

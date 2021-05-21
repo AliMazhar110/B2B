@@ -21,13 +21,17 @@ import java.util.ArrayList;
 public class FlightList {//extends Application{
     private static final FlightBooking flights = new FlightBooking();
     private static final SelectSeats seats = new SelectSeats();
-    private static String[] result = new String[3];
+    private static String airline;
+    private static String flightNo;
+    private static String departure;
+    private static String arrival;
 //    public static final ObservableList names = FXCollections.observableArrayList();
 //    private static final ToggleGroup group =  new ToggleGroup();
 
     //@Override
     //public void start(Stage stage){
-    public String[] display(Stage stage, String id, String source, String destination) {
+    public void display(Stage stage, String id, String source,
+                            String destination, String date) {
         stage.setTitle("Select Flight");
         GridPane gridPane = createFlightPane();
         addUIControls(gridPane, source, destination);
@@ -53,7 +57,8 @@ public class FlightList {//extends Application{
         });
         book.setOnAction(e->{
             try {
-                result[0] = seats.display(stage, id, source, destination);
+                seats.display(stage, id, source, destination, date, airline, flightNo,
+                        departure, arrival);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -61,7 +66,6 @@ public class FlightList {//extends Application{
         stage.setScene(scene);
         stage.show();
         gridPane.requestFocus();
-        return result;
     }
     private static GridPane createFlightPane(){
         // Instantiate new GridPane
@@ -136,14 +140,20 @@ public class FlightList {//extends Application{
         gridPane.add(gridPane1,0,1,2,1);
 
         if (btn1.isSelected()) {
-            result[1] = f.get(0).getAirline();
-            result[2] = f.get(0).getFlightNo();
+            airline = f.get(0).getAirline();
+            flightNo = f.get(0).getFlightNo();
+            departure = f.get(0).getDepartureTime();
+            arrival = f.get(0).getArrivalTime();
         } else if (btn2.isSelected()) {
-            result[1] = f.get(1).getAirline();
-            result[2] = f.get(1).getFlightNo();
+            airline = f.get(1).getAirline();
+            flightNo = f.get(1).getFlightNo();
+            departure = f.get(1).getDepartureTime();
+            arrival = f.get(1).getArrivalTime();
         } else if (btn3.isSelected()) {
-            result[1] = f.get(2).getAirline();
-            result[2] = f.get(2).getFlightNo();
+            airline = f.get(2).getAirline();
+            flightNo = f.get(2).getFlightNo();
+            departure = f.get(2).getDepartureTime();
+            arrival = f.get(2).getArrivalTime();
         }
 
 //        ListView listView = new ListView();

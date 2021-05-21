@@ -162,13 +162,11 @@ public class FlightBooking {//extends Application {
                 return;
             }
             try {
-                seats = list.display(window, id, f[0], t[0]);
+                list.display(window, id, f[0], t[0], d[0]);
             } catch (Exception a) {
                 //a.printStackTrace();
                 System.out.println(a.getMessage());
             }
-            pnr = seats[2].substring(0,3) +""+ generateRandom();
-            Database.bookFlight(f[0], t[0], d[0], seats[1], seats[2], pnr, id, seats[0]);
         });
     }
 
@@ -182,7 +180,5 @@ public class FlightBooking {//extends Application {
         alert.show();
     }
 
-    private static int generateRandom(){
-        return (int)(Math.random()*900)+100;
-    }
+
 }
