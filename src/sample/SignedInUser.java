@@ -87,8 +87,7 @@ public class SignedInUser{// extends Application {
             }
         });
         viewFlightStatus.setOnAction(e -> { // view flight status
-            FlightStatus.display(window, "User", "Airline",
-                    "Flight Number", "Departure time");
+            FlightStatus.display(window, id);
         });
         logout.setOnAction(e ->  { // logout
             System.out.println("Successfully Logged out");

@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="mailactivation">
     <CLASSES>
-      <root url="file://C:/EmailJava/mailactivation" />
+      <root url="jar://E:/downloads/email_lib/mailactivation/activation.jar!/" />
+      <root url="jar://E:/downloads/email_lib/mailactivation/mail.jar!/" />
+      <root url="jar://E:/downloads/email_lib/mailactivation/techsoftemail.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://C:/EmailJava/mailactivation" recursive="false" />
   </library>
 </component>

@@ -10,6 +10,7 @@ import javafx.geometry.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 public class EditProfile {
 
@@ -111,7 +112,8 @@ public class EditProfile {
                         "Error!", "Passwords do not match");
                 return;
             } else {
-                if (Popup.display()) {
+                if (showAlertPart2(Alert.AlertType.CONFIRMATION, grid.getScene().getWindow())){
+                    grid.requestFocus();
                     try {
                         if (Database.editProfile(id, fullNameField.getText(),
                                 newPasswordField.getText(), mobileNoField.getText())) {
@@ -141,6 +143,20 @@ public class EditProfile {
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
+    }
+    private static boolean showAlertPart2(Alert.AlertType alertType,
+                                       Window owner){
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

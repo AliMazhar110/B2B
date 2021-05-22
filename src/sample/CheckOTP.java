@@ -19,8 +19,9 @@ import java.io.FileNotFoundException;
 
 public class CheckOTP {
     private static int otp;
-    public static void display(){
-        Stage primaryStage = new Stage();
+    private static final Main main = new Main();
+    public static void display(Stage window){
+        Stage primaryStage = window;
         primaryStage.setTitle("Verifying E-Mail");
         GridPane gridPane = null;
         try {
@@ -28,7 +29,7 @@ public class CheckOTP {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        addUIControls(gridPane);
+        addUIControls(gridPane,primaryStage);
         Scene scene = new Scene(gridPane,500,400);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -46,7 +47,7 @@ public class CheckOTP {
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         return gridPane;
     }
-    private static void addUIControls(GridPane gridPane){
+    private static void addUIControls(GridPane gridPane,Stage window){
         Label headerLabel = new Label("Enter OTP - ");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         gridPane.add(headerLabel,1,0,2,1);
@@ -74,15 +75,15 @@ public class CheckOTP {
         gridPane.add(submit,2,3);
         submit.setOnAction(e->{
             if(otpField.getText().isEmpty()){
-                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                showAlertPart2(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your name");
             }
             else{
                 if (otp == Integer.parseInt(otpField.getText())) {
-                    showAlert(Alert.AlertType.CONFIRMATION,gridPane.getScene().getWindow(),"Success","Otp Verified");
+                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),window,"Success","OTP verified");
                 }
                 else{
-                    showAlert(Alert.AlertType.ERROR,gridPane.getScene().getWindow(),"Failed","Please Try Again");
+                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),window,"Failed","Please Try Again");
                 }
             }
         });
@@ -114,14 +115,20 @@ public class CheckOTP {
             System.out.println("Error: "+e);
         }
     }
-    private static void showAlert(Alert.AlertType alertType,
-                                  Window owner, String title, String message){
+    private static void showAlertPart2(Alert.AlertType alertType, Window owner, String type, String message){
         Alert alert = new Alert(alertType);
-        alert.setTitle(title);
+        alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
+        alert.setContentText(type+", "+message);
+        alert.showAndWait();
+    }
+    private static void showAlert(Alert.AlertType alertType, Window owner,Stage win, String type, String message){
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(type+", "+message);
+        main.start(win);
+        alert.showAndWait();
     }
     private static int generateOTP(){
         return (int)(Math.random()*9000)+1000;

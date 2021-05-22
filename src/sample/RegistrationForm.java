@@ -31,7 +31,7 @@ public class RegistrationForm extends Application {
             e.printStackTrace();
         }
         // Add UI controls to the registration form grid Pane
-        addUIControls(gridPane);
+        addUIControls(gridPane,primaryStage);
 
         //Add Back Button
         Button backButton = new Button("Back");
@@ -84,7 +84,7 @@ public class RegistrationForm extends Application {
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         return gridPane;
     }
-    private static void addUIControls(GridPane gridPane){
+    private static void addUIControls(GridPane gridPane,Stage window){
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         //Add Header
         Label headerLabel = new Label("Fill The Details - ");
@@ -191,7 +191,7 @@ public class RegistrationForm extends Application {
             }
             Database.insertUser(nameField.getText(), userField.getText(),
                 passwordField.getText(), emailField.getText(), mobileField.getText());
-            CheckOTP.display();
+            CheckOTP.display(window);
         });
     }
     private static void showAlert(Alert.AlertType alertType,
