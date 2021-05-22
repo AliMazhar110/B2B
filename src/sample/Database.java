@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Database {
     private static final String url = "jdbc:mysql://localhost:3306/airport";
     private static final String username = "root";
-    private static final String password = "ALImazhar@110";
+    private static final String password = "AbcD123#";
     private static final String className = "com.mysql.cj.jdbc.Driver";
     private static String table;
     private static String query;
@@ -172,15 +172,15 @@ public class Database {
             Class.forName(className);
             Connection con = DriverManager.getConnection(url, username, password);
             Statement st = con.createStatement();
-            query = "select * from " + table + " where ('User_ID' = "+ id + ");";
+            query = "select * from " + table + " where User_ID='"+ id + "';";
             ResultSet rs = st.executeQuery(query);
             rs = st.executeQuery(query);
             while(rs.next()) {
                 // ID, Airline, FlightNo, PNR, source, destination, departure, arrival, date, seats
-                b.add(new BookedFlights(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8), rs.getString(9),
-                        rs.getString(10)));
+                b.add(new BookedFlights(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10)));
             }
             return b;
         } catch (Exception e) {

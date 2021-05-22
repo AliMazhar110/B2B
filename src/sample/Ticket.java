@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.image.Image;
+import javafx.scene.shape.Box;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.*;
@@ -45,7 +46,7 @@ public class Ticket {//extends Application {
 
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
 
-        VBox details = showDetails(id);
+        HBox details = showDetails(id);
 
         /*Label name = new Label("Name: ");
         name.setFont(font);
@@ -86,10 +87,10 @@ public class Ticket {//extends Application {
         window.show();
     }
 
-    private static VBox showDetails(String id) {
+    private static HBox showDetails(String id) {
         Font font = Font.font("Century", FontWeight.SEMI_BOLD, 16);
         ArrayList<BookedFlights> b = Database.showBookedFlight(id);
-        VBox v = new VBox(10);
+        HBox v = new HBox(10);
         for (int i = 0; i < b.size(); ++i) {
             Label airline = new Label(b.get(i).getAirline());
             airline.setFont(font);
