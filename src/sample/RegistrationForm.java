@@ -184,14 +184,19 @@ public class RegistrationForm extends Application {
                         "Error!", "Please enter your password");
                 return;
             }
-            if(passwordField.getText().isEmpty()){
+            if (passwordField.getText().isEmpty()){
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your password");
                 return;
             }
+            if (Database.loginUser(userField.getText(), passwordField.getText())) {
+                showAlert(Alert.AlertType.WARNING, gridPane.getScene().getWindow(),
+                        "Warning", "User already exists");
+                return;
+            }
+            CheckOTP.display(window);
             Database.insertUser(nameField.getText(), userField.getText(),
                 passwordField.getText(), emailField.getText(), mobileField.getText());
-            CheckOTP.display(window);
         });
     }
     private static void showAlert(Alert.AlertType alertType,

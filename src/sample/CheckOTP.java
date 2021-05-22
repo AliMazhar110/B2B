@@ -80,10 +80,13 @@ public class CheckOTP {
             }
             else{
                 if (otp == Integer.parseInt(otpField.getText())) {
-                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),window,"Success","OTP verified");
+                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),
+                            "Success","OTP verified");
+                    main.start(window);
                 }
                 else{
-                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),window,"Failed","Please Try Again");
+                    showAlert(Alert.AlertType.INFORMATION,gridPane.getScene().getWindow(),
+                            "Failed","Please Try Again");
                 }
             }
         });
@@ -122,12 +125,12 @@ public class CheckOTP {
         alert.setContentText(type+", "+message);
         alert.showAndWait();
     }
-    private static void showAlert(Alert.AlertType alertType, Window owner,Stage win, String type, String message){
+    private static void showAlert(Alert.AlertType alertType, Window owner, String type, String message){
         Alert alert = new Alert(alertType);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
         alert.setContentText(type+", "+message);
-        main.start(win);
+
         alert.showAndWait();
     }
     private static int generateOTP(){

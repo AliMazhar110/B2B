@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Database {
     private static final String url = "jdbc:mysql://localhost:3306/airport";
     private static final String username = "root";
-    private static final String password = "ALImazhar@110";
+    private static final String password = "AbcD123#";
     private static final String className = "com.mysql.cj.jdbc.Driver";
     private static String table;
     private static String query;
@@ -41,7 +41,7 @@ public class Database {
                     //id +" AND User_Password = "+ passwd +");";
             ResultSet rs = st.executeQuery(query);
             while(rs.next()) {
-                if (rs.getString(2).equals(id) &&
+                if (rs.getString(2).equals(id) ||
                         rs.getString(3).equals(passwd))
                     return true;
             }

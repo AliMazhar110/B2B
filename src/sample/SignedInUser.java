@@ -17,7 +17,6 @@ import java.io.FileNotFoundException;
 
 public class SignedInUser{// extends Application {
     private static FlightBooking book = new FlightBooking();
-    private static Ticket t = new Ticket();
     private static CancelTicket c = new CancelTicket();
 
     /*@Override
@@ -54,7 +53,6 @@ public class SignedInUser{// extends Application {
         Button cancelFlight = new Button("Cancel a flight");
         Button viewFlightStatus = new Button("View flight status");
         Button logout = new Button("Logout");
-        Button viewTicket = new Button("View Ticket");
 
         editProfile.setStyle("-fx-background-color: #FFA500;");
         editProfile.setFont(btnFont);
@@ -64,8 +62,6 @@ public class SignedInUser{// extends Application {
         cancelFlight.setFont(btnFont);
         viewFlightStatus.setStyle("-fx-background-color: #FFA500;");
         viewFlightStatus.setFont(btnFont);
-        viewTicket.setStyle("-fx-background-color: #FFA500;");
-        viewTicket.setFont(btnFont);
         logout.setStyle("-fx-background-color: #FFA500;");
         logout.setFont(btnFont);
 
@@ -97,17 +93,10 @@ public class SignedInUser{// extends Application {
                 fileNotFoundException.printStackTrace();
             }
         });
-        viewTicket.setOnAction(e -> { // view Boarding Pass
-            try {
-                t.showTicket(window, id);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(viewTicket,
-                viewFlightStatus, editProfile, bookFlight,
+        layout.getChildren().addAll(viewFlightStatus,
+                editProfile, bookFlight,
                 cancelFlight, logout);
         layout.setAlignment(Pos.CENTER);
         grid.add(layout, 0, 1);
