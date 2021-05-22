@@ -18,11 +18,17 @@ import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
-public class Table extends Application {
+public class Table {//extends Application {
     static int count = 0;
-    @Override
+    private static SignedInUser a = new SignedInUser();
+    /*@Override
     public void start(Stage stage) throws FileNotFoundException {
+
+     */
+    public void display(Stage stage, String id, ArrayList<String> p,
+                        ObservableList<FileData> data) throws FileNotFoundException {
         //Label for education
         Label label = new Label("File Data:");
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
@@ -34,18 +40,15 @@ public class Table extends Application {
         grid.setBackground(new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT)));
         TableView<FileData> table = new TableView<>();
-        final ObservableList<FileData> data = FXCollections.observableArrayList(
-                new FileData("Ali Mazhar Luqmani", "SpiceJet", "12345","H1234",
+        /*final ObservableList<FileData> data = FXCollections.observableArrayList(
+                new FileData("SpiceJet", "12345","H1234",
                         "DEL", "BOM","23:50", "01:60"),
-                new FileData("Harsh Vardhan Guleria", "Vistara", "67789","A1234",
+                new FileData("Vistara", "67789","A1234",
                         "DEL", "BOM","12:56","14:50" ),
-                new FileData("Harsh Vardhan Guleria", "Vistara", "67789","A1234",
+                new FileData("Vistara", "67789","A1234",
                         "DEL", "BOM","12:56","14:50" )
-        );
+        );*/
         //Creating columns
-        TableColumn<FileData, String> nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        nameCol.setPrefWidth(150);
 
         TableColumn<FileData, String> airplaneCol = new TableColumn<>("Airplane");
         airplaneCol.setCellValueFactory(new PropertyValueFactory<>("Airplane"));
@@ -82,7 +85,7 @@ public class Table extends Application {
         ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        table.getColumns().addAll(actionCol,nameCol,airplaneCol,flightNumber,pnr,source,
+        table.getColumns().addAll(actionCol,airplaneCol,flightNumber,pnr,source,
                 destination, departure, arrival);
         //Setting the size of the table
         table.setMaxSize(750, 600);
@@ -92,7 +95,14 @@ public class Table extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 50, 50, 60));
-        Button delete = new Button("Delete");
+        Button delete = new Button("Cancel Flight");
+        Button back = new Button("Back");
+        Font btnFont = Font.font("Century", FontWeight.EXTRA_BOLD, 16);
+        delete.setStyle("-fx-background-color: #FFA500;");
+        delete.setFont(btnFont);
+        back.setStyle("-fx-background-color: #FFA500;");
+        back.setFont(btnFont);
+        String[] PNR = new String[1];
         delete.setOnAction(e -> {
             for(int i=0;i<data.size();i++){
                 FileData d = table.getItems().get(i);
@@ -110,7 +120,12 @@ public class Table extends Application {
                 try {
                     for (FileData filedata : table.getItems()) {
                         if (filedata.getCheckBox().isSelected()) {
-                            data.remove(filedata);
+                            for (int i = 0; i < p.size(); ++i) {
+                                if (filedata.getPNR().equals(p.get(i)))
+                                    PNR[0] = filedata.getPNR();
+                            }
+                            if (Database.cancelFlight(id, PNR[0]))
+                                data.remove(filedata);
                         }
                     }
                 } catch (Exception err) {
@@ -118,7 +133,14 @@ public class Table extends Application {
                 }
             }
         });
-        vbox.getChildren().addAll(label, table,delete);
+        back.setOnAction(e -> {
+            try {
+                a.display("Welcome", stage, id);
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+        });
+        vbox.getChildren().addAll(label, table, back, delete);
         //Setting the scene
         grid.getChildren().add(vbox);
         Scene scene = new Scene(grid, 800, 600);
@@ -135,7 +157,7 @@ public class Table extends Application {
         alert.initOwner(owner);
         alert.show();
     }
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         launch(args);
-    }
+    }*/
 }

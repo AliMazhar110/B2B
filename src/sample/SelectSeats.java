@@ -29,6 +29,7 @@ public class SelectSeats {//extends Application {
     public void display(Stage primaryStage, String id, String source,
                           String destination,String date, String airline,
                         String flightNo, String dep, String arr) throws Exception {
+        pass = 0;
         primaryStage.setTitle("Select Seats");
         GridPane gridPane = new GridPane();
         FileInputStream inputStream = null;
@@ -145,7 +146,7 @@ public class SelectSeats {//extends Application {
                     "Seats Booked","last seat booked ="+ getMessage());
             String pnr = generateRandom() +"";
             if (Database.bookFlight(source, destination, date, airline, flightNo,
-                    pnr, id, getMessage(), dep, arr)) {
+                    pnr, id, getMessage(), dep, arr, "true")) {
                 try {
                     loggedIn.display("Welcome", stage, id);
                 } catch (FileNotFoundException fileNotFoundException) {

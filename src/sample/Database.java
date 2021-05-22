@@ -53,14 +53,14 @@ public class Database {
 
     public static boolean bookFlight(String source, String destination, String date, String airline,
                               String flightNo, String PNR, String id, String seats, String departure,
-                                     String arrival) {
+                                     String arrival, String status) {
         table = "flights_booked";
         try {
             Class.forName(className);
             Connection con = DriverManager.getConnection(url, username, password);
             query = "insert into " + table + " values('"+ id + "', '"+ airline +"', '"+ flightNo +"', '"+
                     PNR + "', '" + source + "', '" + destination + "', '"+ departure +"', '"+ arrival +"', '"+
-                    date +"', '"+ seats +"');";
+                    date +"', '"+ seats +"', '"+ status +"');";
             PreparedStatement prep = con.prepareStatement(query);
             prep.execute();
             return true;
@@ -76,8 +76,8 @@ public class Database {
             Class.forName(className);
             Connection con = DriverManager.getConnection(url, username, password);
             Statement st = con.createStatement();
-            query = "delete from " + table + " where ('User_ID' = " + userid + " AND 'PNR' = "
-                    + PNR + ");";
+            query = "delete from " + table + " where (User_ID='" + userid + "' AND PNR='"
+                    + PNR + "');";
             st.executeUpdate(query);
             return true;
         } catch (Exception e) {
@@ -152,7 +152,7 @@ public class Database {
             Class.forName(className);
             Connection con = DriverManager.getConnection(url, username, password);
             Statement st = con.createStatement();
-            query = "select * from " + table + " where ('User_ID' = "+ id +");";
+            query = "select * from " + table + " where (User_ID='"+ id +"');";
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 u.add(new Users(rs.getString(1), rs.getString(2), rs.getString(3),
@@ -180,7 +180,7 @@ public class Database {
                 b.add(new BookedFlights(rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10)));
+                        rs.getString(9), rs.getString(10), rs.getString(11)));
             }
             return b;
         } catch (Exception e) {

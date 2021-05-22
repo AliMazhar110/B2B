@@ -54,33 +54,35 @@ public class FlightList {//extends Application{
         gridPane1.add(rectangle1,0,1);
         to1.toFront();
         btn1.toFront();
-        Rectangle rectangle2 = new Rectangle(700,100, Color.TAN);
         CheckBox btn2 = new CheckBox();
-        rectangle2.setArcHeight(30);
-        rectangle2.setArcWidth(30);
-        Text to2 = new Text("\t"+ f.get(1).getAirline() +"\t\t"+ f.get(1).getDepartureTime() +
-                "\t\t"+ f.get(1).getDuration() +"\t\t"+ f.get(1).getArrivalTime() +"\t\tPrice-"+
-                f.get(1).getPrice());
-        to2.setFont(new Font("Verdana Bold",16));
-        gridPane1.add(rectangle2,0,2,2,1);
-        gridPane1.add(btn2,0,2,2,1);
-        gridPane1.add(to2,0,2,2,1);
-        to2.toFront();
-        btn2.toFront();
-        Rectangle rectangle3 = new Rectangle(700,100, Color.TAN);
-        rectangle3.setArcHeight(30);
-        rectangle3.setArcWidth(30);
         CheckBox btn3 = new CheckBox();
-        Text to3 = new Text("\t"+ f.get(2).getAirline() +"\t\t"+ f.get(2).getDepartureTime() +
-                "\t\t"+ f.get(2).getDuration() +"\t\t"+ f.get(2).getArrivalTime() +"\t\tPrice-"+
-                f.get(2).getPrice());
-        to3.setFont(new Font("Verdana Bold",16));
-        gridPane1.add(rectangle3,0,3,2,1);
-        gridPane1.add(btn3,0,3,2,1);
-        gridPane1.add(to3,0,3,2,1);
-        to3.toFront();
-        btn3.toFront();
-        gridPane.add(gridPane1,0,1,2,1);
+        if (f.size() >= 2) {
+            Rectangle rectangle2 = new Rectangle(700, 100, Color.TAN);
+            rectangle2.setArcHeight(30);
+            rectangle2.setArcWidth(30);
+            Text to2 = new Text("\t" + f.get(1).getAirline() + "\t\t" + f.get(1).getDepartureTime() +
+                    "\t\t" + f.get(1).getDuration() + "\t\t" + f.get(1).getArrivalTime() + "\t\tPrice-" +
+                    f.get(1).getPrice());
+            to2.setFont(new Font("Verdana Bold", 16));
+            gridPane1.add(rectangle2, 0, 2, 2, 1);
+            gridPane1.add(btn2, 0, 2, 2, 1);
+            gridPane1.add(to2, 0, 2, 2, 1);
+            to2.toFront();
+            btn2.toFront();
+            Rectangle rectangle3 = new Rectangle(700, 100, Color.TAN);
+            rectangle3.setArcHeight(30);
+            rectangle3.setArcWidth(30);
+            Text to3 = new Text("\t" + f.get(2).getAirline() + "\t\t" + f.get(2).getDepartureTime() +
+                    "\t\t" + f.get(2).getDuration() + "\t\t" + f.get(2).getArrivalTime() + "\t\tPrice-" +
+                    f.get(2).getPrice());
+            to3.setFont(new Font("Verdana Bold", 16));
+            gridPane1.add(rectangle3, 0, 3, 2, 1);
+            gridPane1.add(btn3, 0, 3, 2, 1);
+            gridPane1.add(to3, 0, 3, 2, 1);
+            to3.toFront();
+            btn3.toFront();
+            gridPane.add(gridPane1, 0, 1, 2, 1);
+        }
 
         Scene scene = new Scene(gridPane, 800, 675);
         Button back_button = new Button("Back");

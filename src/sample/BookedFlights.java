@@ -11,10 +11,11 @@ public class BookedFlights {
 	private String seats;
 	private String date;
 	private String pnr;
+	private String status;
 
     public BookedFlights(String id, String airline, String flightNo,
                          String pnr, String s, String d, String dep,
-						 String arr, String date, String seat) {
+						 String arr, String date, String seat, String status) {
 		this.id = id;
 		this.airline = airline;
 		this.flightNo = flightNo;
@@ -25,6 +26,7 @@ public class BookedFlights {
 		this.pnr = pnr;
 		this.date = date;
 		this.seats = seat;
+		this.status = status;
     }
 
 	public String getId() { return this.id; }
@@ -37,4 +39,5 @@ public class BookedFlights {
 	public String getPNR() { return this.pnr; }
 	public String getSeats() { return this.seats; }
 	public String getDate() { return this.date; }
+	public String getStatus() { return this.status; }
 }

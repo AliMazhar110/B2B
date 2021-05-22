@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,6 +16,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ import java.io.FileNotFoundException;
 public class CancelTicket {//extends Application {
 
     private static SignedInUser s = new SignedInUser();
-
+    private static Table t = new Table();
     /*@Override
     public void start(Stage primaryStage) {
         // SQL code to get name, airline, flight number, departure time,
@@ -48,7 +51,7 @@ public class CancelTicket {//extends Application {
         return grid;
     }
 
-    public void display(Stage window, String id) {
+    public void display(Stage window, String id) throws FileNotFoundException {
         GridPane grid = null;
         try {
             grid = getGrid();
@@ -59,7 +62,9 @@ public class CancelTicket {//extends Application {
         window.setTitle("Cancel Ticket");
         Scene scene = new Scene(grid, 800, 675);
         window.setScene(scene);
-        ArrayList<BookedFlights> b = new ArrayList<>();
+        ArrayList<BookedFlights> b = Database.showBookedFlight(id);
+        ArrayList<FileData> data = new ArrayList<>();
+        ArrayList<String> p = new ArrayList<>();
         Font btnFont = Font.font("Century", FontWeight.NORMAL, 16);
 
         Label airline = new Label(b.get(0).getAirline());
@@ -69,6 +74,16 @@ public class CancelTicket {//extends Application {
         Label arrivalTime = new Label(b.get(0).getArrivalTime());
 
         Font font = Font.font("Century", FontWeight.EXTRA_BOLD, 16);
+
+        for (BookedFlights bf : b) {
+            data.add(new FileData(bf.getAirline(), bf.getFlightNo(),
+                    bf.getPNR(), bf.getSource(), bf.getDestination(),
+                    bf.getDepartureTime(), bf.getArrivalTime()));
+            p.add(bf.getPNR());
+        }
+
+        ObservableList<FileData> d = FXCollections.observableArrayList(data);
+        t.display(window, id, p, d);
 
         airline.setFont(font);
         departureTime.setFont(font);
@@ -91,9 +106,10 @@ public class CancelTicket {//extends Application {
         cancelTicket.setFont(btnFont);
         String message = "Cancel Ticket";
         cancelTicket.setOnAction(e -> {
-           /* if (Popup.display()) {
-                if (Database.editProfile())
+          /*if (Popup.display()) {
+                if (Database.cancelFlight())
             }*/
+            cancelTicketConfirmation("Do you confirm");
         });
         back.setOnAction(e -> {
             try {
