@@ -94,6 +94,17 @@ public class FlightStatus {
             date.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
             gridArray[count].add(date,3,2);
 
+            String str = "";
+            if(booked.getStatus().equals("true")){
+                str+="On Time";
+            }
+            else{
+                str+="Delayed";
+            }
+            Label status = new Label(" |   Status = "+str+"           | ");
+            status.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(status,2,3);
+
             grid.add(gridArray[count],0,count+1,2,1);
             count++;
         }

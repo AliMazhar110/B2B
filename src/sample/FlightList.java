@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -37,51 +38,52 @@ public class FlightList {//extends Application{
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
         ArrayList<Flights> f = Database.showFlights(source, destination);
-        Rectangle rectangle1 = new Rectangle(700,100, Color.TAN);
-        rectangle1.setArcHeight(30);
-        rectangle1.setArcWidth(30);
-        CheckBox btn1 = new CheckBox();
-        Text to1 = new Text("\t"+ f.get(0).getAirline() +"\t\t"+ f.get(0).getDepartureTime() +
-                "\t\t"+ f.get(0).getDuration() +"\t\t"+ f.get(0).getArrivalTime() +"\t\tPrice-"+
-                f.get(0).getPrice());
-        to1.setFont(new Font("Verdana Bold",16));
-        GridPane gridPane1 = new GridPane();
-        gridPane1.setHgap(10);
-        // set Vertical gap
-        gridPane1.setVgap(10);
-        gridPane1.add(btn1,0,1);
-        gridPane1.add(to1,0,1);
-        gridPane1.add(rectangle1,0,1);
-        to1.toFront();
-        btn1.toFront();
-        CheckBox btn2 = new CheckBox();
-        CheckBox btn3 = new CheckBox();
-        if (f.size() >= 2) {
-            Rectangle rectangle2 = new Rectangle(700, 100, Color.TAN);
-            rectangle2.setArcHeight(30);
-            rectangle2.setArcWidth(30);
-            Text to2 = new Text("\t" + f.get(1).getAirline() + "\t\t" + f.get(1).getDepartureTime() +
-                    "\t\t" + f.get(1).getDuration() + "\t\t" + f.get(1).getArrivalTime() + "\t\tPrice-" +
-                    f.get(1).getPrice());
-            to2.setFont(new Font("Verdana Bold", 16));
-            gridPane1.add(rectangle2, 0, 2, 2, 1);
-            gridPane1.add(btn2, 0, 2, 2, 1);
-            gridPane1.add(to2, 0, 2, 2, 1);
-            to2.toFront();
-            btn2.toFront();
-            Rectangle rectangle3 = new Rectangle(700, 100, Color.TAN);
-            rectangle3.setArcHeight(30);
-            rectangle3.setArcWidth(30);
-            Text to3 = new Text("\t" + f.get(2).getAirline() + "\t\t" + f.get(2).getDepartureTime() +
-                    "\t\t" + f.get(2).getDuration() + "\t\t" + f.get(2).getArrivalTime() + "\t\tPrice-" +
-                    f.get(2).getPrice());
-            to3.setFont(new Font("Verdana Bold", 16));
-            gridPane1.add(rectangle3, 0, 3, 2, 1);
-            gridPane1.add(btn3, 0, 3, 2, 1);
-            gridPane1.add(to3, 0, 3, 2, 1);
-            to3.toFront();
-            btn3.toFront();
-            gridPane.add(gridPane1, 0, 1, 2, 1);
+        GridPane[] gridArray = new GridPane[3];
+        CheckBox[] btn = new CheckBox[3];
+        for(int i=0;i<3;i++){
+            gridArray[i] = new GridPane();
+            gridArray[i].setAlignment(Pos.TOP_CENTER);
+            btn[i] = new CheckBox();
+        }
+        int count = 0;
+        Label header = new Label("Your Status");
+        header.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.ITALIC,20));
+        header.setTextFill(Color.ORANGE);
+        GridPane.setHalignment(header,HPos.CENTER);
+        GridPane.setMargin(header,new Insets(20,0,20,0));
+        for(Flights flg: f){
+            gridArray[count].setBackground(new Background(new BackgroundFill(Color.ORANGE,
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+            gridArray[count].setPrefHeight(100);
+            gridArray[count].setPrefWidth(400);
+
+            Label flightName = new Label(" AirLine - "+flg.getAirline());
+            flightName.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(flightName,2,0);
+
+            Label flightNumber = new Label(" |  Flight Number - "+flg.getFlightNo());
+            flightNumber.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(flightNumber,3,0);
+
+            gridArray[count].add(btn[count],0,1);
+
+            Label from = new Label(" From - "+flg.getSource());
+            from.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(from,2,1);
+
+            Label to = new Label(" |  To - "+flg.getDestination());
+            to.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(to,3,1);
+
+            Label departure = new Label(" Departure - "+flg.getDepartureTime());
+            departure.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(departure,2,2);
+
+            Label arrival = new Label(" |  Arrival - "+flg.getArrivalTime());
+            arrival.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            gridArray[count].add(arrival,3,2);
+            gridPane.add(gridArray[count],1,count+1,2,1);
+            count++;
         }
 
         Scene scene = new Scene(gridPane, 800, 675);
@@ -99,14 +101,14 @@ public class FlightList {//extends Application{
         gridPane.add(book, 3, 5, 2, 1);
         GridPane.setHalignment(back_button, HPos.LEFT);
         GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
-        GridPane.setHalignment(book, HPos.LEFT);
+        GridPane.setHalignment(book, HPos.RIGHT);
         GridPane.setMargin(book, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
             flights.display(stage, id);
         });
         book.setOnAction(e -> {
             try {
-                if (btn1.isSelected()) {
+                if (btn[0].isSelected()) {
                     System.out.println("In button 1");
                     airline = f.get(0).getAirline();
                     System.out.println(airline);
@@ -114,14 +116,14 @@ public class FlightList {//extends Application{
                     departure = f.get(0).getDepartureTime();
                     arrival = f.get(0).getArrivalTime();
                 }
-                if (btn2.isSelected()) {
+                if (btn[1].isSelected()) {
                     System.out.println("In button 1");
                     airline = f.get(1).getAirline();
                     flightNo = f.get(1).getFlightNo();
                     departure = f.get(1).getDepartureTime();
                     arrival = f.get(1).getArrivalTime();
                 }
-                if (btn3.isSelected()) {
+                if (btn[2].isSelected()) {
                     System.out.println("In button 1");
                     airline = f.get(2).getAirline();
                     flightNo = f.get(2).getFlightNo();
