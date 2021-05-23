@@ -148,6 +148,7 @@ public class SelectSeats {//extends Application {
             if (Database.bookFlight(source, destination, date, airline, flightNo,
                     pnr, id, getMessage(), dep, arr, "true")) {
                 try {
+                    Notification.sendNotification(id);
                     loggedIn.display("Welcome", stage, id);
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
