@@ -166,30 +166,26 @@ public class RegistrationForm extends Application {
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your name");
                 return;
-            }
-            if(userField.getText().isEmpty()){
+            } if(userField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!" ,"Please enter your username");
                 return;
-            }
-            if(emailField.getText().isEmpty()){
+            } if(emailField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your email");
                 return;
-            }
-            else{
+            } else{
                 email = emailField.getText();
-            }            if(mobileField.getText().isEmpty()){
+            }            if(mobileField.getText().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Please enter your password");
+                return;
+            } if (passwordField.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
                         "Error!", "Please enter your password");
                 return;
             }
-            if (passwordField.getText().isEmpty()){
-                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
-                        "Error!", "Please enter your password");
-                return;
-            }
-            if (Database.loginUser(userField.getText(), passwordField.getText())) {
+            if (Database.checkDuringSignUp(userField.getText())) {
                 showAlert(Alert.AlertType.WARNING, gridPane.getScene().getWindow(),
                         "Warning", "User already exists");
                 return;

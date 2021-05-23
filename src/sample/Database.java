@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Database {
     private static final String url = "jdbc:mysql://localhost:3306/airport";
     private static final String username = "root";
-    private static final String password = "ALImazhar@110";
+    private static final String password = "AbcD123#";
     private static final String className = "com.mysql.cj.jdbc.Driver";
     private static String table;
     private static String query;
@@ -20,11 +20,30 @@ public class Database {
             query = "insert into " + table + " values(" + "'" + name + "','" + id + "','" + passwd
                     + "','" + email + "','" + mobile + "');";
             PreparedStatement prep = con.prepareStatement(query);
-            if (!loginUser(id, passwd)) {
+            if (!checkDuringSignUp(id)) {
                 prep.execute();
                 return true;
             } else
                 return false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public static boolean checkDuringSignUp(String id) {
+        table = "users";
+        try {
+            Class.forName(className);
+            Connection con = DriverManager.getConnection(url, username, password);
+            Statement st = con.createStatement();
+            query = "select * from " + table + ";";//" where (User_ID="+
+                    //id +" AND User_Password = "+ passwd +");";
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()) {
+                if (rs.getString(2).equals(id))
+                        return true;
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -41,8 +60,7 @@ public class Database {
                     //id +" AND User_Password = "+ passwd +");";
             ResultSet rs = st.executeQuery(query);
             while(rs.next()) {
-                if (rs.getString(2).equals(id))
-                    if(rs.getString(3).equals(passwd))
+                if (rs.getString(2).equals(id) && rs.getString(3).equals(passwd))
                         return true;
             }
         } catch (Exception e) {
