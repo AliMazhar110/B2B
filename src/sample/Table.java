@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,31 +51,31 @@ public class Table {//extends Application {
 
         TableColumn<FileData, String> airplaneCol = new TableColumn<>("Airplane");
         airplaneCol.setCellValueFactory(new PropertyValueFactory<>("Airplane"));
-        airplaneCol.setPrefWidth(70);
+        airplaneCol.setPrefWidth(100);
 
         TableColumn<FileData, String> flightNumber = new TableColumn<>("Flight Number");
         flightNumber.setCellValueFactory(new PropertyValueFactory<>("FlightNumber"));
-        flightNumber.setPrefWidth(80);
+        flightNumber.setPrefWidth(100);
 
         TableColumn<FileData, String> pnr = new TableColumn<>("PNR");
         pnr.setCellValueFactory(new PropertyValueFactory<>("PNR"));
-        pnr.setPrefWidth(70);
+        pnr.setPrefWidth(100);
 
         TableColumn<FileData, String> departure = new TableColumn<>("Departure");
         departure.setCellValueFactory(new PropertyValueFactory<>("Departure"));
-        departure.setPrefWidth(70);
+        departure.setPrefWidth(100);
 
         TableColumn<FileData, String> arrival = new TableColumn<>("Arrival");
         arrival.setCellValueFactory(new PropertyValueFactory<>("Arrival"));
-        arrival.setPrefWidth(70);
+        arrival.setPrefWidth(100);
 
         TableColumn<FileData, String> source = new TableColumn<>("Source");
         source.setCellValueFactory(new PropertyValueFactory<>("Source"));
-        arrival.setPrefWidth(80);
+        arrival.setPrefWidth(100);
 
         TableColumn<FileData, String> destination = new TableColumn<>("Destination");
         destination.setCellValueFactory(new PropertyValueFactory<>("Destination"));
-        arrival.setPrefWidth(80);
+        arrival.setPrefWidth(100);
 
         TableColumn<FileData, String> actionCol = new TableColumn<>("");
         actionCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));

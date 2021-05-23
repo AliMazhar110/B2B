@@ -101,7 +101,7 @@ public class FlightStatus {
             else{
                 str+="Delayed";
             }
-            Label status = new Label(" |   Status = "+str+"           | ");
+            Label status = new Label(" |   Status = "+str);
             status.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
             gridArray[count].add(status,2,3);
 

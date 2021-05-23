@@ -8,12 +8,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +25,7 @@ public class FlightList {//extends Application{
     private static String flightNo;
     private static String departure;
     private static String arrival;
+    private int c;
 
     public void display(Stage stage, String id, String source,
                         String destination, String date) {
@@ -78,6 +78,11 @@ public class FlightList {//extends Application{
             Label arrival = new Label(" |  Arrival - "+flg.getArrivalTime());
             arrival.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
             gridArray[count].add(arrival,3,2);
+
+            Label price = new Label(" \t\tPrice - Rs. "+flg.getPrice());
+            price.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
+            price.setTextFill(Color.BLACK);
+            gridArray[count].add(price,2,3);
             gridPane.add(gridArray[count],1,count+1,2,1);
             count++;
         }
@@ -103,6 +108,17 @@ public class FlightList {//extends Application{
             flights.display(stage, id);
         });
         book.setOnAction(e -> {
+            c = 0;
+            for(int i=0;i<f.size();i++){
+                if(btn[i].isSelected()){
+                    c++;
+                }
+            }
+            if(c>1 || c==0){
+                showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(),
+                        "Error!", "Zero or More than one Flight was selected.");
+                return;
+            }
             try {
                 if (btn[0].isSelected()) {
                     System.out.println("In button 1");
@@ -160,6 +176,16 @@ public class FlightList {//extends Application{
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
         return gridPane;
+    }
+
+    private static void showAlert(Alert.AlertType alertType,
+                                  Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 
 //        ListView listView = new ListView();

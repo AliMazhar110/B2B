@@ -16,6 +16,14 @@ import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
@@ -132,6 +140,43 @@ public class FlightBooking {//extends Application {
         String[] d = new String[1];
 
         button.setOnAction(actionEvent -> {
+            try {
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime now = LocalDateTime.now();
+                String today = dtf.format(now);
+                String chose = date.getValue().toString();
+                SimpleDateFormat
+                        sdfo
+                        = new SimpleDateFormat("yyyy-MM-dd");
+
+                // Get the two dates to be compared
+                Date d1 = null, d2 = null;
+                try {
+                    d1 = sdfo.parse(today);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    d2 = sdfo.parse(chose);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (d1.compareTo(d2) > 0) {
+                    // When Date d1 > Date d2
+                    showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                            "Error!", "Please Choose Different date.");
+                    return;
+                } else if (d1.compareTo(d2) == 0) {
+
+                    // When Date d1 = Date d2
+                    showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                            "Error!", "Cannot Book a Flight on Same Day.");
+                    return;
+                }
+            }
+            catch(Exception e){
+                System.out.println("Error: "+e);
+            }
             try{
                 f[0] = from.getValue().toString();
             }
@@ -159,6 +204,11 @@ public class FlightBooking {//extends Application {
             if(passengers.getText().isEmpty()){
                 showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
                         "Error!", "Please enter no of passengers");
+                return;
+            }
+            if(from.getValue().toString().equals(to.getValue().toString())){
+                showAlert(Alert.AlertType.ERROR, gridpane.getScene().getWindow(),
+                        "Error!", "Source and Destination cannot be same.");
                 return;
             }
             try {
