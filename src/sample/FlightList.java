@@ -34,7 +34,8 @@ public class FlightList {//extends Application{
 
         Label headerLabel = new Label("\tFlights from "+ source +" to "+ destination);
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD,20));
-        gridPane.add(headerLabel,0,0,2,1);
+        headerLabel.setTextFill(Color.ORANGE);
+        gridPane.add(headerLabel,1,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
         ArrayList<Flights> f = Database.showFlights(source, destination);
@@ -46,16 +47,11 @@ public class FlightList {//extends Application{
             btn[i] = new CheckBox();
         }
         int count = 0;
-        Label header = new Label("Your Status");
-        header.setFont(Font.font("Verdana",FontWeight.BOLD,FontPosture.ITALIC,20));
-        header.setTextFill(Color.ORANGE);
-        GridPane.setHalignment(header,HPos.CENTER);
-        GridPane.setMargin(header,new Insets(20,0,20,0));
         for(Flights flg: f){
             gridArray[count].setBackground(new Background(new BackgroundFill(Color.ORANGE,
                     CornerRadii.EMPTY, Insets.EMPTY)));
-            gridArray[count].setPrefHeight(100);
-            gridArray[count].setPrefWidth(400);
+            gridArray[count].setPrefHeight(80);
+            gridArray[count].setPrefWidth(500);
 
             Label flightName = new Label(" AirLine - "+flg.getAirline());
             flightName.setFont(Font.font("Verdana",FontWeight.BOLD, FontPosture.ITALIC, 16));
@@ -92,17 +88,17 @@ public class FlightList {//extends Application{
         back_button.setStyle("-fx-background-color: #FFA500;");
         back_button.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         back_button.setPrefWidth(100);
-        gridPane.add(back_button, 0, 5, 2, 1);
+        gridPane.add(back_button, 0, 5);
         Button book = new Button("BOOK");
         book.setPrefHeight(40);
         book.setStyle("-fx-background-color: #FFA500;");
         book.setFont(Font.font("Century", FontWeight.NORMAL, 16));
         book.setPrefWidth(100);
-        gridPane.add(book, 3, 5, 2, 1);
+        gridPane.add(book, 7, 5);
         GridPane.setHalignment(back_button, HPos.LEFT);
-        GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
-        GridPane.setHalignment(book, HPos.RIGHT);
-        GridPane.setMargin(book, new Insets(20, 0, 20, 0));
+        //GridPane.setMargin(back_button, new Insets(20, 0, 20, 0));
+        GridPane.setHalignment(book, HPos.LEFT);
+        //GridPane.setMargin(book, new Insets(20, 0, 20, 0));
         back_button.setOnAction(e -> {
             flights.display(stage, id);
         });
@@ -150,9 +146,9 @@ public class FlightList {//extends Application{
         // set Padding
         gridPane.setPadding(new Insets(40, 40, 40, 40));
         // set Horizontal gap
-        gridPane.setHgap(10);
+        gridPane.setHgap(0);
         // set Vertical gap
-        gridPane.setVgap(10);
+        gridPane.setVgap(20);
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream("media/B2B-Background.png");
