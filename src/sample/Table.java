@@ -4,17 +4,21 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -52,36 +56,44 @@ public class Table {//extends Application {
         TableColumn<FileData, String> airplaneCol = new TableColumn<>("Airplane");
         airplaneCol.setCellValueFactory(new PropertyValueFactory<>("Airplane"));
         airplaneCol.setPrefWidth(100);
+        //airplaneCol.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> flightNumber = new TableColumn<>("Flight Number");
         flightNumber.setCellValueFactory(new PropertyValueFactory<>("FlightNumber"));
         flightNumber.setPrefWidth(100);
+        //flightNumber.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> pnr = new TableColumn<>("PNR");
         pnr.setCellValueFactory(new PropertyValueFactory<>("PNR"));
         pnr.setPrefWidth(100);
+        //pnr.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> departure = new TableColumn<>("Departure");
         departure.setCellValueFactory(new PropertyValueFactory<>("Departure"));
         departure.setPrefWidth(100);
+        //departure.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> arrival = new TableColumn<>("Arrival");
         arrival.setCellValueFactory(new PropertyValueFactory<>("Arrival"));
         arrival.setPrefWidth(100);
+        //arrival.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> source = new TableColumn<>("Source");
         source.setCellValueFactory(new PropertyValueFactory<>("Source"));
         arrival.setPrefWidth(100);
+        //source.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> destination = new TableColumn<>("Destination");
         destination.setCellValueFactory(new PropertyValueFactory<>("Destination"));
         arrival.setPrefWidth(100);
+        //destination.setStyle("-fx-font-size: 12pt;");
 
         TableColumn<FileData, String> actionCol = new TableColumn<>("");
         actionCol.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         actionCol.setPrefWidth(35);
+        table.setStyle("-fx-font-size: 12pt;");
         //Adding data to the table
-        ObservableList<String> list = FXCollections.observableArrayList();
+        //ObservableList<String> list = FXCollections.observableArrayList();
         table.setItems(data);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         table.getColumns().addAll(actionCol,airplaneCol,flightNumber,pnr,source,
@@ -90,8 +102,9 @@ public class Table {//extends Application {
         table.setMaxSize(750, 600);
         table.setFixedCellSize(35);
         table.prefHeightProperty().bind(Bindings.size(table.getItems()).multiply(
-                table.getFixedCellSize()).add(30));
-        VBox vbox = new VBox();
+                table.getFixedCellSize()).add(50));
+        VBox vbox = new VBox(20);
+        HBox hbox = new HBox(50);
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 50, 50, 60));
         Button delete = new Button("Cancel Flight");
@@ -139,9 +152,12 @@ public class Table {//extends Application {
                 fileNotFoundException.printStackTrace();
             }
         });
-        vbox.getChildren().addAll(label, table, back, delete);
+        vbox.getChildren().addAll(label, table);
+        hbox.getChildren().addAll(back, delete);
         //Setting the scene
+        hbox.setAlignment(Pos.CENTER);
         grid.getChildren().add(vbox);
+        grid.add(hbox, 0, 5);
         Scene scene = new Scene(grid, 800, 600);
         stage.setTitle("Table View Example");
         stage.setScene(scene);
@@ -156,6 +172,8 @@ public class Table {//extends Application {
         alert.initOwner(owner);
         alert.show();
     }
+
+
     /*public static void main(String[] args){
         launch(args);
     }*/
