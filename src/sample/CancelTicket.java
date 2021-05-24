@@ -10,14 +10,7 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
-import javafx.application.Application;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
-
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.io.FileInputStream;

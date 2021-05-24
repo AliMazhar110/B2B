@@ -17,7 +17,6 @@ import javafx.stage.Window;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Date;
 
 public class SelectSeats {//extends Application {
     private static final FlightList list = new FlightList();

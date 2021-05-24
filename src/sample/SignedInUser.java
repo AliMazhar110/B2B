@@ -10,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 //import javafx.application.Application;
 import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
